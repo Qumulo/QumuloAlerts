@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  exchange:
+    image: qumulo/exchange:${QUMULOALERTS_VERSION:-0.5}
+    hostname: exchange
+    networks:
+      - qumuloalerts
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  alerts:
+    image: qumulo/alerts:${QUMULOALERTS_VERSION:-0.5}
+    hostname: alerts
+    networks:
+      - qumuloalerts
+    volumes:
+      - type: bind
+        source: ${ALERTS_CONFIGDIR:-./config/alerts/}
+        target: /code/config/alerts/
+
+networks:
+  qumuloalerts:
+    external: true
