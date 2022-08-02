@@ -1,46 +1,36 @@
 [
     {
-        "cluster_name": "groot.eng.qumulo.com",
-        "cluster_port": 8000,
-        "cluster_username": "admin",
-        "cluster_password": "Admin123",
-        "nlb": false,
-        "frequency": {
-            "minutes": 1
-        },
-        "monitor": [
-            {
-                "category": "Alerts",
-                "subcategory": ["Quotas"],
-                "enabled": true
-            }
-        ]
+	"cluster_name": "cluster_1.qumulo.com",
+	"cluster_port": 8000,
+	"cluster_username": "USERNAME",
+	"cluster_password": "PASSWORD",
+	"nlb": false,
+	"frequency": {
+	    "seconds": 30
+	},
+	"monitor": [
+	    {
+		"category": "Alarms",
+		"subcategory": ["Disk", "Node"],
+		"enabled": true
+	    }
+	]
     },
     {
-        "cluster_name": "a4u1-40g.eng.qumulo.com",
-        "cluster_port": 8000,
-        "cluster_username": "admin",
-        "cluster_password": "Qumulo1!",
-        "nlb": false,
-        "frequency": {
-            "seconds": 60
-        },
-        "monitor": [
-            {
-                "category": "Alarms",
-                "subcategory": ["*"],
-                "enabled": false
-            },
-            {
-                "category": "Alerts",
-                "subcategory": ["Quotas"],
-                "enabled": true
-            },
-            {
-                "category": "Informational",
-                "subcategory": ["Test"],
-                "enabled": false
-            }
-        ]
+	"cluster_name": "cluster_2.qumulo.com",
+	"cluster_port": 8000,
+	"cluster_username": "USERNAME",
+	"cluster_password": "PASSWORD",
+	"nlb": false,
+	"frequency": {
+	    "minutes": 2
+	},
+	"monitor": [
+	    {
+		"category": "Alarms",
+		"subcategory": ["*"],
+		"enabled": false
+	    }
+	]
     }
 ]

@@ -1,11 +1,11 @@
 {
-    "from_addr": "mike@mikda.com",
-    "to_addr": "mkade@qumulo.com",
-    "login": "apikey",
-    "password": "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",
-    "server": "smtp.sendgrid.net",
+    "from_addr": "",
+    "to_addr": "",
+    "login": "",
+    "password": "",
+    "server": "smtp.gmail.com",
     "port": 465,
     "use": "ssl",
-    "default_timezone": "UTC",
-    "default_language": "en_GB"
+    "default_language": "en",
+    "default_timezone": "UTC"
 }
