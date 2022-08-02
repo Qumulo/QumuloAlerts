@@ -1,0 +1,11 @@
+{
+    "cluster": "rabbitmq",
+    "port": 5672,
+    "vhost": "QumuloProd",
+    "exchange": "com.qumulo.alerts",
+    "routing_key": "not-needed",
+    "queue": "Email",
+    "username": "qumulo",
+    "password": "qumulo"
+}
+

@@ -21,6 +21,16 @@ services:
         source: ${ALERTS_CONFIGDIR:-./config/alerts/}
         target: /code/config/alerts/
 
+  email:
+    image: qumulo/email:${QUMULOALERTS_VERSION:-0.5}
+    hostname: email
+    networks:
+      - qumuloalerts
+    volumes:
+      - type: bind
+        source: ${ALERTS_CONFIGDIR:-./config/email/}
+        target: /code/config/email/
+
 networks:
   qumuloalerts:
     external: true
