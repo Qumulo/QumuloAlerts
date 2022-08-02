@@ -1,0 +1,22 @@
+[
+    {
+        "full_name": "Michael Kade",
+        "short_name": "Mike",
+        "email_address": "mkade@qumulo.com",
+        "language": "en_US",
+        "timezone": "America/Phoenix",
+        "notify":
+        [
+            {
+                "category": "Alarms",
+                "subcategory": ["Disk", "Node"],
+                "enabled": false
+            },
+            {
+                "category": "Alerts",
+                "subcategory": ["Quotas"],
+                "enabled": true
+            }
+        ]
+    }
+]

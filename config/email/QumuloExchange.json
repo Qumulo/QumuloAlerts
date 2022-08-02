@@ -1,0 +1,10 @@
+{
+    "cluster": "exchange",
+    "port": 5672,
+    "vhost": "QumuloProd",
+    "exchange": "com.qumulo.alerts",
+    "routing_key": "not-needed",
+    "queue": "EMail",
+    "username": "qumulo",
+    "password": "M@tterh0rn1!"
+}
