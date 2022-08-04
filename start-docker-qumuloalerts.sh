@@ -2,6 +2,7 @@
 
 export QUMULOALERTS_VERSION=0.5
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
+export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
 
 # If you have a docker swarm, then uncomment the following line and
 # comment the line on "docker-compose up"

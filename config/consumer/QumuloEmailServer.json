@@ -1,0 +1,11 @@
+{
+    "from_addr": "",
+    "to_addr": "",
+    "login": "",
+    "password": "",
+    "server": "smtp.gmail.com",
+    "port": 465,
+    "use": "ssl",
+    "default_language": "en",
+    "default_timezone": "UTC"
+}

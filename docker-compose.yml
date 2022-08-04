@@ -28,8 +28,18 @@ services:
       - qumuloalerts
     volumes:
       - type: bind
-        source: ${ALERTS_CONFIGDIR:-./config/email/}
-        target: /code/config/email/
+        source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
+        target: /code/config/consumer/
+
+  ifttt:
+    image: qumulo/ifttt:${QUMULOALERTS_VERSION:-0.5}
+    hostname: ifttt
+    networks:
+      - qumuloalerts
+    volumes:
+      - type: bind
+        source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
+        target: /code/config/consumer/
 
 networks:
   qumuloalerts:

@@ -1,5 +1,6 @@
 $env:QUMULOALERTS_VERSION = "0.5"
 $env:ALERTS_CONFIGDIR = "./config/alerts/"
+$env:CONSUMER_CONFIGDIR = "./config/consumer/"
 
 # If you have a docker swarm, then uncomment the following line and
 # comment the line on "docker-compose up"
