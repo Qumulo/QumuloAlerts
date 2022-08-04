@@ -35,7 +35,7 @@
             },
             {
                 "category": "Informational",
-                "subcategory": ["Test"],
+                "subcategory": ["*"],
                 "enabled": false
             }
         ]
