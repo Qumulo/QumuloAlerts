@@ -1,5 +1,7 @@
 # QumuloAlerts
 
+# This software is in PRE-Alpha state and should not yet be deployed.
+
 ## Table of Contents
 
    * [Introduction](#introduction)
