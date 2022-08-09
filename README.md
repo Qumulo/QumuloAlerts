@@ -141,6 +141,16 @@ drwxr-xr-x   7 someone  somegroup  224 Aug  4 13:09 alerts
 
 ### QumuloAlerts (alerts) configuration
 
+The detailed configuration for the QumuloAlerts (alerts) process is in the next section:
+
+[Configuring the QumuloAlerts process and its plugins](./docs/QumuloAlerts_config.md)
+
+### Consumer process(es) configuration
+
+The detailed configuration for the consumer processes are in the next section:
+
+[Configuring the Consumer processes and their plugins](./docs/Consumer_config.md)
+
 
 ## Configuring Docker Execution
 
