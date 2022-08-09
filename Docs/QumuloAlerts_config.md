@@ -348,11 +348,42 @@ Let us start by creating two cluster definitions with one quota_path in each.
     ]
 ```
 
-You can see from the example above that we have two clusters called **groot.xyzcorp.com** and **baby-groot.xyzcorp.com**. JSON is very specific about how you specify array items. Each element in the array must be followed by a comma (,) if there will be another element in the array. And there must be **no** comma if it is the last element in the array.
+You can see from the example above that we have two clusters called **groot.xyzcorp.com** and **baby-groot.xyzcorp.com**. JSON is very specific about how you specify array items. 
+
+Each element in the array must be followed by a comma (,) if there is another element in the array. 
+
+If this is the last element in the array, then there must be no comma.
 
 Notice our meaning in the photo below.
 
 ![](./quota_rules.png)
+
+Finally, let us configure two quotas in the cluster **groot.xyzcorp.com**.
+
+```
+    "quota_rules":
+    [
+        {
+            "cluster_name": "groot.xyzcorp.com",
+            "quotas":
+            [
+                {"quota_path": "/home/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/home/mike", "thresholds": {"critical": 95, "error": 80, "warning": 70}}
+            ]
+        },
+        {
+            "cluster_name": "baby-groot.xyzcorp.com",
+            "quotas":
+            [
+                {"quota_path": "/home/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        }
+    ]
+```
+
+In order to add the second quota_path to the array, we had to put a comma at the end of the first element in the array; namely the quota_path `/home/joe`.
+
+You can do this for as many quota_paths as you want to set individual quotas for. Also, for as many clusters as you want to monitor quotas.
 
 ## Help
 
