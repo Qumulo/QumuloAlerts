@@ -5,8 +5,7 @@
 ## Table of Contents
 
    * [Directory Structure](#directorystructure)
-   * [Overview](#overview)
-   * [QumuloAlerts](#qumuloalerts)
+   * [QumuloAlerts json file](#qumuloalertsjsonfile)
    * [Help](#help)
    * [Copyright](#copyright)
    * [License](#license)
@@ -36,7 +35,7 @@ You should see:
 drwxr-xr-x  4 someone  somegroup   128 Aug  3 17:06 plugins
 ```
 
-### QumuloAlerts.json
+## QumuloAlerts json file
 
 Using your favorite editor, edit the file ```QumuloAlerts.json```. This file contains one or more json structures; one for each cluster that you wish to monitor. 
 
