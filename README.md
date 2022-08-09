@@ -94,6 +94,29 @@ A consumer (or subscriber) process accepts a message from the Exchange and provi
 
 ## Configuration
 
+## Configuring Docker Execution
+
+in your cloned git directory, you will find a file called "start-docker-qumuloalerts.sh" if you are using a Linux system or "start-docker-qumuloalerts.ps1" if you are on a Windows system. Using your favorite text based editor, edit either file and look at the following four lines.
+
+*LINUX*
+
+```
+export QUMULOALERTS_VERSION=0.6.1
+export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
+export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
+```
+
+*WINDOWS*
+```
+$env:QUMULOALERTS_VERSION = "0.6.1"
+$env:ALERTS_CONFIGDIR = "./config/alerts/"
+$env:CONSUMER_CONFIGDIR = "./config/consumer/"
+```
+
+You will want to change the first line `QUMULOALERTS_VERSION` to match the major version of the code you are running on your cluster. The reason for this is that we bind the appropriate Qumulo API library for that version in the docker image. If you use a newer docker image than your cluster os version, then you might have an issue where the Qumulo API library cannot connect to the cluster. We only care about the major number of the cluster os version. So if you are running Qumulo Core 5.2.4, then you would set the `QUMULOALERTS_VERSION` to `5.2`. **NOTE** For the preview releases of QumuloAlerts, please only use the VERSION specified and do not modify it. The software has only been tested to this version.
+
+You can leave the entry `ALERTS_CONFIGDIR` and `CONSUMER_CONFIGDIR` alone. This is the location where the configuration and schema files are located. They are used by the docker image for the required values located in those configuration files.
+
 ## Running QumuloAlerts in Docker
 
 Once you have edited the files in start-docker-qumuloalerts.sh (Linux) or start-docker-qumuloalerts.ps1 (Windows), you can execute it by typing ```./start-docker-qumuloalerts.sh``` or ```.\start-docker-qumuloalerts.ps1```. This command will communicate with docker hub to get the image and your local docker system to create the container and start it executing. 
