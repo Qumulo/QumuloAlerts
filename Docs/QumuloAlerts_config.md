@@ -6,6 +6,7 @@
 
    * [Directory Structure](#directorystructure)
    * [QumuloAlerts json file](#qumuloalertsjsonfile)
+   * [Plugin Configuration](#pluginconfiguration)
    * [Help](#help)
    * [Copyright](#copyright)
    * [License](#license)
@@ -235,6 +236,123 @@ The information for the first cluster in the above config file is the same as th
 Notice that `nlb` is set to true. This means that there is a network load balancer and that it (the NLB) points to the cluster using the address `baby-groot.xyzcorp.com`.
 
 All three categories will be monitored with `Alarms` only monitoring `Nodes` and `Disks`. `Alerts` will only be monitoring `Quotas` and `Informational` **would** be monitoring OSUpgrades, except that it is disabled.
+
+## Plugin Configuration
+
+Normally, most plugins don't require any configuration. Remember that plugins should not do any processing, so should not require any configuration. The one significant difference is the **Quotas** plugin. 
+
+### Quotas Plugin Configuration
+
+The Quotas plugin does require configuration as it is necessary to know which percentages trigger alerts.
+
+Let us start by going to the plugins directory.
+
+```cd config/alerts/plugins```
+
+You should see:
+
+```
+-rw-r--r--  1 someone  somegroup   872 Aug  4 12:07 QuotasPlugin.json
+-rw-r--r--  1 someone  somegroup  2844 Aug  4 12:07 QuotasPlugin.schema.json
+```
+
+Edit the **QuotasPlugin.json** file using your favorite text based editor.
+
+```
+{
+    "default_quota_rules":
+    {
+        "thresholds":
+        {
+            "critical": 90,
+            "error": 75,
+            "warning": 50
+        }
+    },
+    "quota_rules":
+    [
+        {
+            "cluster_name": "cluster_1",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        },
+        {
+            "cluster_name": "cluster_2",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        }
+    ]
+}
+```
+
+There are two sections to this configuration file: **default_quota_rules** and **quota_rules**.
+
+The default_quota_rules contain three thresholds which are used to determine if the percentage used should trigger a quota alert. You will note that they are called **critical**, **error**, and **warning**. You MUST not change those names as they are required by the software.
+
+The three thresholds under **default_quota_rules** will trigger a quota alert for every single quota defined in the system. You can think of them as global settings for quota alerting. 
+
+The second section **quota_rules** are overrides to the **default_quota_rules**. In this section, you can create specific quota rules for any particular quota on a given cluster. This section is simply an array of items and you can add as many items as you wish.
+
+The default_quota_rules should be self-explanatory, so we won't spend any time on demonstrating how to configure them. Instead, let us walk through
+configuring some quota_rules for two different clusters.
+
+```
+    "quota_rules":
+    [
+        {
+            "cluster_name": "cluster_1",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        },
+        {
+            "cluster_name": "cluster_2",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        }
+    ]
+```
+
+As we stated, there are two different arrays in this configuration. There can be more than one cluster and, witin the cluster definition, there can be more than one quota_path.
+
+Let us start by creating two cluster definitions with one quota_path in each.
+
+```
+    "quota_rules":
+    [
+        {
+            "cluster_name": "groot.xyzcorp.com",
+            "quotas":
+            [
+                {"quota_path": "/home/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        },
+        {
+            "cluster_name": "baby-groot.xyzcorp.com",
+            "quotas":
+            [
+                {"quota_path": "/home/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        }
+    ]
+```
+
+You can see from the example above that we have two clusters called **groot.xyzcorp.com** and **baby-groot.xyzcorp.com**. JSON is very specific about how you specify array items. Each element in the array must be followed by a comma (,) if there will be another element in the array. And there must be **no** comma if it is the last element in the array.
+
+Notice our meaning in the photo below.
+
+![](./quota_rules.png)
 
 ## Help
 
