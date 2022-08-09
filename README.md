@@ -92,11 +92,13 @@ Those processes, described below, are broadly called consumers (because they con
 
 A consumer (or subscriber) process accepts a message from the Exchange and provides some further filtering and processing of that message. Once processed, the message is either stored, forwarded to another process for additional work, or sent directly to a user in the form of an email or SMS/Webhook message.
 
+## Configuration
+
 ## Running QumuloAlerts in Docker
 
 Once you have edited the files in start-docker-qumuloalerts.sh (Linux) or start-docker-qumuloalerts.ps1 (Windows), you can execute it by typing ```./start-docker-qumuloalerts.sh``` or ```.\start-docker-qumuloalerts.ps1```. This command will communicate with docker hub to get the image and your local docker system to create the container and start it executing. 
 
-## Stopping QumuloALerts
+## Stopping QumuloAlerts
 
 Stopping QumuloAlerts requires telling docker to stop the containers. This is done through the script stop-docker-qumuloalerts.sh (Linux) or stop-docker-qumuloalerts.ps1 (Windows). You execute it by typing ```./stop-docker-qumulolalerts.sh``` or ```.\stop-docker-qumuloalerts.ps1```.
 
