@@ -9,6 +9,7 @@
    * [QumuloAlerts](#qumuloalerts)
    * [Exchange](#exchange)
    * [Consumers](#consumers)
+   * [Getting Started](#getting-started)
    * [Configuration](#configuration)
    * [Configuring Docker Execution](#configuring-docker-execution)
    * [Why Docker?](#why-docker)
@@ -91,6 +92,41 @@ Those processes, described below, are broadly called consumers (because they con
 ## Consumers
 
 A consumer (or subscriber) process accepts a message from the Exchange and provides some further filtering and processing of that message. Once processed, the message is either stored, forwarded to another process for additional work, or sent directly to a user in the form of an email or SMS/Webhook message.
+
+## Getting Started
+
+Before you can configure and get this software to work on your system, you will need to clone this repository on your
+machine. For that, you will need to have `git` installed on your machine.
+
+Once git is operational, then find or create a directory where you wish to store the contents of the `QumuloAlerts` repository and
+clone it to your machine with the command `git clone https://github.com/Qumulo/QumuloAlerts.git`
+
+You will notice that the `git clone` command will create a new directory in your current location call `QumuloAlerts`.
+
+The contents of that directory should look like:
+
+```
+drwxr-xr-x  10 someone  somegroup       320 Aug  4 13:09 Docs
+-rw-r--r--   1 someone  somegroup      1063 Aug  2 13:23 LICENSE
+-rw-r--r--   1 someone  somegroup      5170 Aug  4 12:05 README.md
+drwxr-xr-x   4 someone  somegroup       128 Aug  3 17:43 config
+-rw-r--r--   1 someone  somegroup       994 Aug  4 13:09 docker-compose.yml
+-rw-r--r--   1 someone  somegroup       966 Aug  4 13:09 start-docker-qumuloalerts.ps1
+-rwxr-xr-x   1 someone  somegroup       515 Aug  4 13:09 start-docker-qumuloalerts.sh
+-rw-r--r--   1 someone  somegroup       557 Aug  2 13:23 stop-docker-qumuloalerts.ps1
+-rwxr-xr-x   1 someone  somegroup       301 Aug  2 13:23 stop-docker-qumuloalerts.sh
+-rw-r--r--   1 someone  somegroup   7043872 Aug  4 13:09 test_email.macos-latest
+-rw-r--r--   1 someone  somegroup  14714824 Aug  2 13:23 test_email.ubuntu-latest
+
+```
+
+Of course, the owner will not be `someone` and the group will not be `somegroup`, but will show you as the owner and the group as whatever group you currently belong to. If in doubt, simply type `id -gn` to see your current group and `id -un` to see your current login id.
+
+You will need to modify several configuration files and one shell script to get this software to run in your environment. Additionally, git doesn't preserve execution permissions, so you will need to add the execution permissions to the files ``test_email.macos-latest``` and ```test_email.ubuntu-latest```.
+
+You can accomplish this by running the command ```chmod a+x test_email.*```
+
+Now, let's move onto editing the configuration files.
 
 ## Configuration
 
