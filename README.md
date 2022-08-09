@@ -22,6 +22,8 @@ QumuloAlerts is an entire infrastructure, composed of multiple processes that pr
 At a minimum, there are always two processes. The first is "alerts"; which communicates with
 one or more clusters. The information gathered is sent to the second process; called the "exchange".
 
+Ultimately, the exhange will pass messages onto "subscriber" processes; which will filter, process, and output or store the messages.
+
 Each of the components will be described in more detail below.
 
 ## Overview
@@ -80,6 +82,10 @@ the two parties; the caller and "the called".
 Our exchange is a process that takes messages from alerts and passes them to processes that will consume them. We haven't talked about
 the consumers yet, but clearly there must be a method to notify any given group of users that something has happened on their cluster.
 Those processes, described below, are broadly called consumers (because they consume the messages passed by the alerts process). 
+
+## Consumers
+
+A consumer process accepts a message from the Exchange and provides some further filtering and processing of that message. Once processed, the message is either stored, forwarded to another process for additional work, or sent directly to a user in the form of an email or SMS/Webhook message.
 
 ## Help
 
