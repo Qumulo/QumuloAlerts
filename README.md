@@ -130,6 +130,18 @@ Now, let's move onto editing the configuration files.
 
 ## Configuration
 
+You will need to configure several files in order to get QumuloAlerts working properly. There are two groups of configuration files; one for the QumuloAlerts (alerts) and the other for each one of the consumers (email and IFTTT).
+
+Start by looking within the ```config``` directory. You should see:
+
+```
+drwxr-xr-x  12 someone  somegroup  384 Aug  4 13:09 consumer
+drwxr-xr-x   7 someone  somegroup  224 Aug  4 13:09 alerts
+```
+
+### QumuloAlerts (alerts) configuration
+
+
 ## Configuring Docker Execution
 
 in your cloned git directory, you will find a file called "start-docker-qumuloalerts.sh" if you are using a Linux system or "start-docker-qumuloalerts.ps1" if you are on a Windows system. Using your favorite text based editor, edit either file and look at the following four lines.
