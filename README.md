@@ -119,11 +119,11 @@ You can leave the entry `ALERTS_CONFIGDIR` and `CONSUMER_CONFIGDIR` alone. This 
 
 ## Running QumuloAlerts in Docker
 
-Once you have edited the files in start-docker-qumuloalerts.sh (Linux) or start-docker-qumuloalerts.ps1 (Windows), you can execute it by typing ```./start-docker-qumuloalerts.sh``` or ```.\start-docker-qumuloalerts.ps1```. This command will communicate with docker hub to get the image and your local docker system to create the container and start it executing. 
+Once you have edited the files in ```start-docker-qumuloalerts.sh``` (Linux) or ```start-docker-qumuloalerts.ps1``` (Windows), you can execute it by typing ```./start-docker-qumuloalerts.sh``` or ```.\start-docker-qumuloalerts.ps1```. This command will communicate with docker hub to get the image and your local docker system to create the container and start it executing. 
 
 ## Stopping QumuloAlerts
 
-Stopping QumuloAlerts requires telling docker to stop the containers. This is done through the script stop-docker-qumuloalerts.sh (Linux) or stop-docker-qumuloalerts.ps1 (Windows). You execute it by typing ```./stop-docker-qumulolalerts.sh``` or ```.\stop-docker-qumuloalerts.ps1```.
+Stopping QumuloAlerts requires telling docker to stop the containers. This is done through the script ```stop-docker-qumuloalerts.sh``` (Linux) or ```stop-docker-qumuloalerts.ps1``` (Windows). You execute it by typing ```./stop-docker-qumulolalerts.sh``` or ```.\stop-docker-qumuloalerts.ps1```.
 
 ## Why Docker?
 
