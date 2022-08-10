@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   exchange:
-    image: qumulo/exchange:${QUMULOALERTS_VERSION:-0.6.2}
+    image: qumulo/exchange:${QUMULOALERTS_VERSION:-0.6.3}
     hostname: exchange
     networks:
       - qumuloalerts
@@ -12,7 +12,7 @@ services:
       - 15672:15672
 
   alerts:
-    image: qumulo/alerts:${QUMULOALERTS_VERSION:-0.6.2}
+    image: qumulo/alerts:${QUMULOALERTS_VERSION:-0.6.3}
     hostname: alerts
     networks:
       - qumuloalerts
@@ -22,7 +22,7 @@ services:
         target: /code/config/alerts/
 
   email:
-    image: qumulo/email:${QUMULOALERTS_VERSION:-0.6.2}
+    image: qumulo/email:${QUMULOALERTS_VERSION:-0.6.3}
     hostname: email
     networks:
       - qumuloalerts
@@ -32,7 +32,7 @@ services:
         target: /code/config/consumer/
 
   ifttt:
-    image: qumulo/ifttt:${QUMULOALERTS_VERSION:-0.6.2}
+    image: qumulo/ifttt:${QUMULOALERTS_VERSION:-0.6.3}
     hostname: ifttt
     networks:
       - qumuloalerts

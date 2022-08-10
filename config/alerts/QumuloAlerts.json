@@ -13,6 +13,16 @@
 		"category": "Alarms",
 		"subcategory": ["Disk", "Node"],
 		"enabled": true
+	    },
+	    {
+		"category": "Alerts",
+		"subcategory": ["Quotas"],
+		"enabled": true
+	    },
+	    {
+		"category": "Informational",
+		"subcategory": ["*"],
+		"enabled": false
 	    }
 	]
     },
