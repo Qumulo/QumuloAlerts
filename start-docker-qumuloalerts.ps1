@@ -1,4 +1,4 @@
-$env:QUMULOALERTS_VERSION = "0.6.3"
+$env:QUMULOALERTS_VERSION = "0.6.4"
 $env:ALERTS_CONFIGDIR = "./config/alerts/"
 $env:CONSUMER_CONFIGDIR = "./config/consumer/"
 

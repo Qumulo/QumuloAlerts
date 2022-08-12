@@ -6,6 +6,6 @@
     "server": "smtp.gmail.com",
     "port": 465,
     "use": "ssl",
-    "default_language": "en",
+    "default_language": "en_GB",
     "default_timezone": "UTC"
 }
