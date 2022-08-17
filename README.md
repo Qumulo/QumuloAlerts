@@ -64,8 +64,13 @@ Alerts are classified as software or environmental changes within that same Qumu
 - Snapshot Creation
 - Snapshot Deletion
 - Snapshot rate of change too high over a specified period of time (Used for RansomWare detection)
-- Volume Notification - Done by configured percentage
+- Cluster Total Storage Notification - Done by configured percentage
+- Replication Creation
+- Replication Deletion
 - Replication Failure
+- Shift Creation
+- Shift Deletion
+- Shift Failure
 
 #### Informational
 
