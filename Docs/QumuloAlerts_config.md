@@ -103,12 +103,12 @@ Let's look at an specific configuration for a cluster and its plugins.
         "monitor": [
             {
                 "category": "Alarms",
-                "subcategory": ["Disk, Nodes, PS, Fans, Network"],
+                "subcategory": ["Disks", "Nodes", "PS", "Fans", "Network"],
                 "enabled": true
             },
             {
                 "category": "Alerts",
-                "subcategory": ["Quotas"],
+                "subcategory": ["Quotas", "Volume", "Snapshot", "Shift", "Replication"],
                 "enabled": true
             },
             {
