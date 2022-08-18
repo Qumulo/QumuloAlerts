@@ -143,7 +143,7 @@ UTC, by the way, is the only timezone that does not follow the format of **Conti
 
 1. The **from_addr** will be used in every message from the email server. It signifies to the email recipient the address that sent the email. This should be something that will readily identify why the email recipient is receiving this email.
 2. The **to_addr** is **ONLY** used to test the email server. The actual **to_addr* comes from the **QumuloUsers.json** file that is described later in this document.
-3. The **login** is required by many email relays to verify that the somebody is not trying to utilize the email services of your organization to send bulk email.
+3. The **login** is required by many email relays to verify that the email sender is not trying to utilize the email service to send bulk email. Many organizations place their email behind firewalls and remove the need for the login and password. Verify with your email administration what is required to send email through your organizations email relay.
 4. The **password** is required, along with the login, by many email relays.
 5. The **server** is the actual address of the STMP email relay. 
 6. The **port** is the port required by SMTP email relay. In most cases, it will be 587 for SSL and/or TLS. In some rare cases, some organizations still use 25.
