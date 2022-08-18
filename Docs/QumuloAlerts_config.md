@@ -108,7 +108,7 @@ Let's look at an specific configuration for a cluster and its plugins.
             },
             {
                 "category": "Alerts",
-                "subcategory": ["Quotas", "Volume", "Snapshot", "Shift", "Replication"],
+                "subcategory": ["Quotas", "Volume", "Snapshots", "Shift", "Replication"],
                 "enabled": true
             },
             {
@@ -152,7 +152,7 @@ Note: If you set **nlb** to false, then the cluster **must** be using floating I
   **Alerts Cateogry**
   
    - `category` - `Alerts`
-   - `subcategory` - An array of plugins with one entry: `Quotas`, `Volume`, `Snapshot`, `Shift`, and `Replication`
+   - `subcategory` - An array of plugins with one entry: `Quotas`, `Volume`, `Snapshots`, `Shift`, and `Replication`
    - `enabled` - `true`. The quotas plugin mentioned in the subcategory is enabled and will be executed once per minute.
 
   **Informational Category**
@@ -178,12 +178,12 @@ Finally, let us look at a configuration file containing two clusters:
         "monitor": [
             {
                 "category": "Alarms",
-                "subcategory": ["Disk, Nodes, PS, Fans, Network"],
+                "subcategory": ["Disks", "Nodes", "PS", "Fans", "Network"],
                 "enabled": true
             },
             {
                 "category": "Alerts",
-                "subcategory": ["Quotas"],
+                "subcategory": ["Quotas", "Volume", "Snapshots", "Shift", "Replication"],
                 "enabled": true
             },
             {
