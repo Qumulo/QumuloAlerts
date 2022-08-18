@@ -146,19 +146,19 @@ Note: If you set **nlb** to false, then the cluster **must** be using floating I
   **Alarms Category**
   
    - `category` - `Alarms`
-   - `subcategory` - An array of plugins `Disk`, `Node`, `PS`, `Fans`, and `Network`
+   - `subcategory` - An array of plugins `Disks`, `Node`, `PS`, `Fans`, and `Network`
    - `enabled` - `true`. Every plugin mentioned in the subcategory is enabled and will be executed once per minute.
   
   **Alerts Cateogry**
   
    - `category` - `Alerts`
-   - `subcategory` - An array of plugins with one entry: `Quotas`
+   - `subcategory` - An array of plugins with one entry: `Quotas`, `Volume`, `Snapshot`, `Shift`, and `Replication`
    - `enabled` - `true`. The quotas plugin mentioned in the subcategory is enabled and will be executed once per minute.
 
   **Informational Category**
   
    - `category` - `Informational`
-   - `subcategory` - An array of plugins with one entry: `OSUpgrade`
+   - `subcategory` - An array of plugins with one entry: `OSUpgrade`, and `
    - `enabled` - `true`. The OSUpgrade plugin mentioned in the subcategory is enabled
    - `frequency` - Override the default frequency of 1 minute and instead use 60 minutes for this subcategory of plugins
 
