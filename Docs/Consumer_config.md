@@ -296,7 +296,7 @@ Finally, click the **Create Action** button. That is it!! You have created a web
 ## Editing for IFTTT Server
 
 Now that you have a IFTTT account, you can edit the **QumuloIFTTTServer.json** configuration file. This file
-necessary in order for the QumuloAlerts software to know about the token required to login to the IFTTT service.
+is necessary in order for the QumuloAlerts software to know how to communicate with the IFTTT service that you just configured.
 
 Let's start by going to the location of the configuration files. From earlier, the location is ```./config/consumer/```
 
