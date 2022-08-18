@@ -239,7 +239,7 @@ All three categories will be monitored with `Alarms` only monitoring `Nodes` and
 
 ## Plugin Configuration
 
-Normally, most plugins don't require any configuration. Remember that plugins should not do any processing, so should not require any configuration. The one significant difference is the **Quotas** plugin. 
+Normally, most plugins don't require any configuration. Remember that plugins should not do any processing, so should not require any configuration. The one significant difference is the **Quotas** and **Volume** plugins. 
 
 ### Quotas Plugin Configuration
 
