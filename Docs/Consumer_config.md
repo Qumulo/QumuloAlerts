@@ -393,7 +393,7 @@ Let's look at the contents of the file.
         [
             {
                 "category": "Alarms",
-                "subcategory": ["Disk", "Node"],
+                "subcategory": ["Disks", "Nodes"],
                 "enabled": true
             }
         ]
