@@ -9,7 +9,7 @@
    * [Testing Email](#testingemail)
    * [IFTTT](#ifttt)
    * [Editing for IFTTT Server](#editingforiftttserver)
-   * [Configuring Users for Email and IFTTT](configuringusersforemailandifttt)
+   * [Configuring Users for Email and IFTTT](#configuringusersforemailandifttt)
    * [Help](#help)
    * [Copyright](#copyright)
    * [License](#license)
