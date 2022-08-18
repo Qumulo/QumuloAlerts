@@ -84,7 +84,7 @@ Note: If you set **nlb** to false, then the cluster **must** be using floating I
 
    - `category` - Either `Alarms`, `Alerts`, or `Informational`
    - `subcategory` - An array of plugins to run against the cluster
-   - `enabled` - True or False. Should This monitor category and all of its subcategories be executed.
+   - `enabled` - True or False. Should the category and all of its subcategories (or plugins) be executed.
    - `frequency` [OPTIONAL] - A specific frequency of either seconds or minutes for this subcategory of plugins to run
 
 Let's look at an specific configuration for a cluster and its plugins.
