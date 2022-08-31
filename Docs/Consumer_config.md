@@ -9,7 +9,7 @@
    * [Testing Email](#testingemail)
    * [IFTTT](#ifttt)
    * [Editing for IFTTT Server](#editingforiftttserver)
-   * [Configuring Users for Email and IFTTT](#configuringusersforemailandifttt)
+   * [Configuring Users for Email and IFTTT](configuringusersforemailandifttt)
    * [Help](#help)
    * [Copyright](#copyright)
    * [License](#license)
@@ -143,7 +143,7 @@ UTC, by the way, is the only timezone that does not follow the format of **Conti
 
 1. The **from_addr** will be used in every message from the email server. It signifies to the email recipient the address that sent the email. This should be something that will readily identify why the email recipient is receiving this email.
 2. The **to_addr** is **ONLY** used to test the email server. The actual **to_addr* comes from the **QumuloUsers.json** file that is described later in this document.
-3. The **login** is required by many email relays to verify that the email sender is not trying to utilize the email service to send bulk email. Many organizations place their email behind firewalls and remove the need for the login and password. Verify with your email administration what is required to send email through your organizations email relay.
+3. The **login** is required by many email relays to verify that the somebody is not trying to utilize the email services of your organization to send bulk email.
 4. The **password** is required, along with the login, by many email relays.
 5. The **server** is the actual address of the STMP email relay. 
 6. The **port** is the port required by SMTP email relay. In most cases, it will be 587 for SSL and/or TLS. In some rare cases, some organizations still use 25.
@@ -296,7 +296,7 @@ Finally, click the **Create Action** button. That is it!! You have created a web
 ## Editing for IFTTT Server
 
 Now that you have a IFTTT account, you can edit the **QumuloIFTTTServer.json** configuration file. This file
-is necessary in order for the QumuloAlerts software to know how to communicate with the IFTTT service that you just configured.
+necessary in order for the QumuloAlerts software to know about the token required to login to the IFTTT service.
 
 Let's start by going to the location of the configuration files. From earlier, the location is ```./config/consumer/```
 
@@ -393,7 +393,7 @@ Let's look at the contents of the file.
         [
             {
                 "category": "Alarms",
-                "subcategory": ["Disks", "Nodes"],
+                "subcategory": ["Disk", "Node"],
                 "enabled": true
             }
         ]

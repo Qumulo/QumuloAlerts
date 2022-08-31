@@ -84,7 +84,7 @@ Note: If you set **nlb** to false, then the cluster **must** be using floating I
 
    - `category` - Either `Alarms`, `Alerts`, or `Informational`
    - `subcategory` - An array of plugins to run against the cluster
-   - `enabled` - True or False. Should the category and all of its subcategories (or plugins) be executed.
+   - `enabled` - True or False. Should This monitor category and all of its subcategories be executed.
    - `frequency` [OPTIONAL] - A specific frequency of either seconds or minutes for this subcategory of plugins to run
 
 Let's look at an specific configuration for a cluster and its plugins.
@@ -103,12 +103,12 @@ Let's look at an specific configuration for a cluster and its plugins.
         "monitor": [
             {
                 "category": "Alarms",
-                "subcategory": ["Disks", "Nodes", "PS", "Fans", "Network"],
+                "subcategory": ["Disk, Nodes, PS, Fans, Network"],
                 "enabled": true
             },
             {
                 "category": "Alerts",
-                "subcategory": ["Quotas", "Volume", "Snapshots", "Shift", "Replication"],
+                "subcategory": ["Quotas"],
                 "enabled": true
             },
             {
@@ -146,19 +146,19 @@ Note: If you set **nlb** to false, then the cluster **must** be using floating I
   **Alarms Category**
   
    - `category` - `Alarms`
-   - `subcategory` - An array of plugins `Disks`, `Node`, `PS`, `Fans`, and `Network`
+   - `subcategory` - An array of plugins `Disk`, `Node`, `PS`, `Fans`, and `Network`
    - `enabled` - `true`. Every plugin mentioned in the subcategory is enabled and will be executed once per minute.
   
   **Alerts Cateogry**
   
    - `category` - `Alerts`
-   - `subcategory` - An array of plugins with one entry: `Quotas`, `Volume`, `Snapshots`, `Shift`, and `Replication`
+   - `subcategory` - An array of plugins with one entry: `Quotas`
    - `enabled` - `true`. The quotas plugin mentioned in the subcategory is enabled and will be executed once per minute.
 
   **Informational Category**
   
    - `category` - `Informational`
-   - `subcategory` - An array of plugins with one entry: `OSUpgrade`, and `
+   - `subcategory` - An array of plugins with one entry: `OSUpgrade`
    - `enabled` - `true`. The OSUpgrade plugin mentioned in the subcategory is enabled
    - `frequency` - Override the default frequency of 1 minute and instead use 60 minutes for this subcategory of plugins
 
@@ -178,12 +178,12 @@ Finally, let us look at a configuration file containing two clusters:
         "monitor": [
             {
                 "category": "Alarms",
-                "subcategory": ["Disks", "Nodes", "PS", "Fans", "Network"],
+                "subcategory": ["Disk, Nodes, PS, Fans, Network"],
                 "enabled": true
             },
             {
                 "category": "Alerts",
-                "subcategory": ["Quotas", "Volume", "Snapshots", "Shift", "Replication"],
+                "subcategory": ["Quotas"],
                 "enabled": true
             },
             {
@@ -239,7 +239,7 @@ All three categories will be monitored with `Alarms` only monitoring `Nodes` and
 
 ## Plugin Configuration
 
-Normally, most plugins don't require any configuration. Remember that plugins should not do any processing, so should not require any configuration. The one significant difference is the **Quotas** and **Volume** plugins. 
+Normally, most plugins don't require any configuration. Remember that plugins should not do any processing, so should not require any configuration. The one significant difference is the **Quotas** plugin. 
 
 ### Quotas Plugin Configuration
 
