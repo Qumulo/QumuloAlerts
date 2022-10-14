@@ -11,19 +11,19 @@
     "quota_rules":
     [
         {
-            "cluster_name": "cluster_1",
+            "cluster_name": "groot.eng.qumulo.com",
             "quotas":
             [
-                {"quota_path": "/root/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}},
-                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+                {"quota_path": "/Movies/Dutch/", "thresholds": {"critical": 95, "error": 75, "warning": 60}},
+                {"quota_path": "/root/mike/", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
             ]
         },
         {
-            "cluster_name": "cluster_2",
+            "cluster_name": "a4u1-40g.eng.qumulo.com",
             "quotas":
             [
-                {"quota_path": "/root/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}},
-                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+                {"quota_path": "/Milestone/", "thresholds":  {"critical": 80, "error": 60, "warning": 40}},
+                {"quota_path": "/root/mike/", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
             ]
         }
     ]
