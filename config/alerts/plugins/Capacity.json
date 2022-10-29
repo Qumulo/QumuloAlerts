@@ -1,0 +1,13 @@
+{
+    "capacity_rules":
+    [
+        {
+            "cluster_name": "a4u1-40g.eng.qumulo.com",
+            "thresholds": {"critical": 90, "error": 70, "warning": 40}
+        },
+        {
+            "cluster_name": "groot.eng.qumulo.com",
+            "thresholds":  {"critical": 90, "error": 70, "warning": 40}
+        }
+    ]
+}
