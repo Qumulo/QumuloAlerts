@@ -1,0 +1,6 @@
+{
+    "token": "",
+    "trigger_action": "send_sms",
+    "default_language": "en_GB",
+    "default_timezone": "UTC"
+}

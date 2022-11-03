@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export QUMULOALERTS_VERSION=5.2.4
+export QUMULOALERTS_VERSION=5.2.5
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
 export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
 
