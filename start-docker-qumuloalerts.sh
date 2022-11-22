@@ -1,7 +1,11 @@
 #!/bin/bash
 
+export INFLUXDB_VERSION=2.0
+export INFLUXDB_CONFIGDIR=$(PWD)/influxdb/config
+
 export QUMULOALERTS_VERSION=5.2.5
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
+
 export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
 
 # If you have a docker swarm, then uncomment the following line and

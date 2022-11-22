@@ -2,9 +2,31 @@ version: '3.8'
 
 services:
 
+  influxdb:
+    image: influxdb:${INFLUXDB_VERSION:-2.0}
+    hostname: influxdb
+    container_name: influxdb
+    networks:
+      - qumuloalerts
+    ports:
+      - 8086:8086
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2:rw
+      - ./influxdb/config:/etc/influxdb2:rw
+      - ./influxdb/backup:/var/lib/backup:rw
+    environment:
+      - TZ=Etc/UTC
+      - DOCKER_INFLUXDB_INIT_USERNAME=qumulo
+      - DOCKER_INFLUXDB_INIT_PASSWORD=Admin123
+      - DOCKER_INFLUXDB_INIT_ORG=qumulo
+      - DOCKER_INFLUXDB_INIT_BUCKET=QumuloAlertsConfig
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=36r2JNh87NlYYChGdPMikuMEMf7zh5dImkcl-mwMfx0eUwvCs34Vj11y5SctXLvmkZmPGl9R0qvnAQSQxMH-Xw==
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+
   exchange:
     image: qumulo/exchange:${QUMULOALERTS_VERSION:-5.2.5}
     hostname: exchange
+    container_name: exchange
     networks:
       - qumuloalerts
     ports:
@@ -14,6 +36,7 @@ services:
   alerts:
     image: qumulo/alerts:${QUMULOALERTS_VERSION:-5.2.5}
     hostname: alerts
+    container_name: alerts
     networks:
       - qumuloalerts
     volumes:
@@ -24,6 +47,7 @@ services:
   email:
     image: qumulo/email:${QUMULOALERTS_VERSION:-5.2.5}
     hostname: email
+    container_name: email
     networks:
       - qumuloalerts
     volumes:
@@ -31,15 +55,24 @@ services:
         source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
         target: /code/config/consumer/
 
-  ifttt:
-    image: qumulo/ifttt:${QUMULOALERTS_VERSION:-5.2.5}
-    hostname: ifttt
+  clicksend:
+    image: qumulo/clicksend:${QUMULOALERTS_VERSION:-5.2.5}
+    hostname: clicksend
+    container_name: clicksend
     networks:
       - qumuloalerts
     volumes:
       - type: bind
         source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
         target: /code/config/consumer/
+
+volumes:
+  data:
+    external: true
+  config:
+    external: true
+  backup:
+    external: true
 
 networks:
   qumuloalerts:

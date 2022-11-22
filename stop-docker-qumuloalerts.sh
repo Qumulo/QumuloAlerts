@@ -7,15 +7,17 @@
 # This stops a container running in a Docker stand-alone configuration
 # Comment out this group of lines if you need to stop a Docker Swarm
 
-docker container stop qumuloalerts-email-1
-docker container stop qumuloalerts-ifttt-1
-docker container stop qumuloalerts-alerts-1
-docker container stop qumuloalerts-exchange-1
+docker container stop email
+docker container stop clicksend
+docker container stop alerts
+docker container stop exchange
+docker container stop influxdb
 
-docker container rm qumuloalerts-email-1
-docker container rm qumuloalerts-ifttt-1
-docker container rm qumuloalerts-alerts-1
-docker container rm qumuloalerts-exchange-1
+docker container rm email
+docker container rm clicksend
+docker container rm alerts
+docker container rm exchange
+docker container rm influxdb
 
 # Finally, remove the shared network
 
