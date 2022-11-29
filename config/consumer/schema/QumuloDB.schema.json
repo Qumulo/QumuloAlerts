@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "DBSchema",
+    "description": "A schema to validate the DB configuration file for QumuloAlerts",
+    "type": "object",
+    "required":
+    [
+	    "url",
+	    "org",
+	    "token",
+        "buckets"
+    ],
+    "type": "object",
+    "properties":
+    {
+	    "url": {"type": "string"},
+	    "org": {"type": "string"},
+	    "token": {"type": "string"},
+        "buckets": {"type": "array", "items": {"$ref": "/config/bucket_definition"}}
+    },
+
+    "$defs":
+    {
+        "bucket_definition":
+        {
+            "$id": "/config/bucket_definition",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "BucketDefinition",
+            "description": "Bucket item definition",
+            "type": "object",
+            "properties":
+            {
+                "name": {"type":  "string"},
+                "description": {"type":  "string"},
+                "retention": {"type":  "integer"}
+            },
+            "required": ["name", "description", "retention"]
+        }
+    }
+}

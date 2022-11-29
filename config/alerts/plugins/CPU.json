@@ -1,0 +1,11 @@
+{
+    "cpu_temperature":
+    {
+        "thresholds":
+        {
+            "critical": 20,
+            "error": 15,
+            "warning": 10
+        }
+    }
+}

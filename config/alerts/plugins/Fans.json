@@ -1,0 +1,12 @@
+{
+    "fan_speed":
+    {
+	    "minimum": 500,
+        "thresholds":
+        {
+            "critical": 3000,
+            "error": 2500,
+            "warning": 2000
+        }
+    }
+}
