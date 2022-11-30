@@ -1,11 +1,11 @@
-# QumuloAlerts
+# Qumulo Alerts
 
 ## Official Documentation
 
-The documentation for the installation and configuration of QumuloAlerts is on
+The documentation for the installation and configuration of Qumulo Alerts is on
 the official documentation page.
 
-[QumuloAlerts Documentation](http://docs.qumulo.com)
+[Qumulo Alerts Documentation](http://docs.qumulo.com)
 
 ## Help
 
