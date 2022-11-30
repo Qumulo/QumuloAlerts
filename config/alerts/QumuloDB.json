@@ -5,19 +5,19 @@
     "buckets":
     [
         {
-            "name": "QumuloAlertsConfig",
+            "name": "Qumulo Alerts Config",
             "description": "Bucket to store QumuloAlerts config (versus json files)",
             "type": "config",
             "retention": 0
         },
         {
-            "name": "QumuloAlertsMetrics",
+            "name": "Qumulo Alerts Metrics",
             "description": "Bucket to store OpenMetrics data from a Qumulo cluster",
             "type": "metrics",
             "retention": 7776000
         },
         {
-            "name": "QumuloAlertsAlarms",
+            "name": "Qumulo Alerts Alarms",
             "description": "Bucket to store alarms and alerts received from QumuloAlerts",
             "type": "alerts",
             "retention": 31536000
