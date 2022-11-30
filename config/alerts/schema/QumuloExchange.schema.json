@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "AlertQueue",
-    "description": "A schema to validate the queue configuration file for QumuloAlerts",
+    "description": "A schema to validate the queue configuration file for Qumulo Alerts",
     "type": "object",
     "required": [
 	"cluster",
