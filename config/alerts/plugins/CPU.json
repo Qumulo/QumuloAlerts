@@ -3,9 +3,9 @@
     {
         "thresholds":
         {
-            "critical": 20,
-            "error": 15,
-            "warning": 10
+            "critical": 25,
+            "error": 20,
+            "warning": 15
         }
     }
 }
