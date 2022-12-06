@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export INFLUXDB_VERSION=2.0
-export INFLUXDB_CONFIGDIR=$(PWD)/influxdb/config
+export INFLUXDB_CONFIGDIR=$(pwd)/influxdb/config
 
 export QUMULOALERTS_VERSION=5.3.0
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
