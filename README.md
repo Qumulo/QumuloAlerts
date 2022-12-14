@@ -5,7 +5,7 @@
 The documentation for the installation and configuration of Qumulo Alerts is on
 the official documentation page.
 
-[Qumulo Alerts Documentation](https://docs.qumulo.com/qumulo-alerts-guide/)
+[Qumulo Alerts Documentation](http://docs.qumulo.com)
 
 ## Help
 

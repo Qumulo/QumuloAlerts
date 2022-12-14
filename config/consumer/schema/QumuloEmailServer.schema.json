@@ -19,10 +19,7 @@
     [
         "from_addr",
         "to_addr",
-        "login",
-        "password",
         "server",
-        "port",
-        "use"
+        "port"
     ]
 }
