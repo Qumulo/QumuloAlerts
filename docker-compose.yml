@@ -24,7 +24,7 @@ services:
       - DOCKER_INFLUXDB_INIT_MODE=setup
 
   exchange:
-    image: qumulo/exchange:${QUMULOALERTS_VERSION:-5.3.1}
+    image: qumulo/exchange:${QUMULOALERTS_VERSION:-5.3.2}
     hostname: exchange
     container_name: exchange
     networks:
@@ -34,7 +34,7 @@ services:
       - 15672:15672
 
   alerts:
-    image: qumulo/alerts:${QUMULOALERTS_VERSION:-5.3.1}
+    image: qumulo/alerts:${QUMULOALERTS_VERSION:-5.3.2}
     hostname: alerts
     container_name: alerts
     networks:
@@ -45,7 +45,7 @@ services:
         target: /code/config/alerts/
 
   email:
-    image: qumulo/email:${QUMULOALERTS_VERSION:-5.3.1}
+    image: qumulo/email:${QUMULOALERTS_VERSION:-5.3.2}
     hostname: email
     container_name: email
     networks:
@@ -56,7 +56,7 @@ services:
         target: /code/config/consumer/
 
   clicksend:
-    image: qumulo/clicksend:${QUMULOALERTS_VERSION:-5.3.1}
+    image: qumulo/clicksend:${QUMULOALERTS_VERSION:-5.3.2}
     hostname: clicksend
     container_name: clicksend
     networks:
