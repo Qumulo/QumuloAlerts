@@ -1,4 +1,13 @@
 {
+    "default_capacity_rules":
+    {
+        "thresholds":
+        {
+            "critical": 95,
+            "error": 85,
+            "warning": 75
+        }
+    },
     "capacity_rules":
     [
         {

@@ -5,6 +5,16 @@
     "type": "object",
     "properties":
     {
+        "default_capacity_rules":
+        {
+            "type": "object",
+            "properties":
+            {
+                "thresholds": {"$ref": "/config/thresholds"}
+            },
+            "additionalProperties": false,
+            "required": ["thresholds"]
+        },
         "capacity_rules":
         {
             "type": "array",
