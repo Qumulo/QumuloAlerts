@@ -3,7 +3,7 @@
 export INFLUXDB_VERSION=2.0
 export INFLUXDB_CONFIGDIR=$(pwd)/influxdb/config
 
-export QUMULOALERTS_VERSION=5.3.4
+export QUMULOALERTS_VERSION=6.0.0
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
 
 export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
