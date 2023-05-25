@@ -2,107 +2,77 @@ version: '3.8'
 
 services:
 
-  AlertsDB:
-    image: mariadb:${MARIADB_VERSION:-latest}
-    hostname: alertsdb
-    container_name: AlertsDB
-    networks:
-      - qumuloalerts
-    ports:
-      - 3307:3306
-    volumes:
-      - ./alerts-storage/data/:/var/lib/mysql:rw
-      - ./alerts-storage/sql/:/docker-entrypoint-initdb.d/:ro
-    environment:
-      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MARIADB_USER=${MARIADB_USER}
-      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-      - MARIADB_DATABASE=${MARIADB_DATABASE}
-    healthcheck:
-      test: "mariadb -uroot -p$MARIADB_PASSWORD alerts -e 'select 1'"
-      interval: 5s
-      retries: 10
-
-  InfluxDB:
-    image: influxdb:${INFLUXDB_VERSION:-2.6.1}
+  influxdb:
+    image: influxdb:${INFLUXDB_VERSION:-2.0}
     hostname: influxdb
-    container_name: InfluxDB
+    container_name: influxdb
     networks:
       - qumuloalerts
     ports:
       - 8086:8086
     volumes:
-      - ./influxdb-storage/data:/var/lib/influxdb2:rw
-      - ./influxdb-storage/config:/etc/influxdb2:rw
-      - ./influxdb-storage/backup:/var/lib/backup:rw
+      - ./influxdb/data:/var/lib/influxdb2:rw
+      - ./influxdb/config:/etc/influxdb2:rw
+      - ./influxdb/backup:/var/lib/backup:rw
     environment:
       - TZ=Etc/UTC
-      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_INIT_USERNAME}
-      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_INIT_PASSWORD}
-      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_INIT_ORG}
-      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_INIT_BUCKET}
-      - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_INIT_RETENTION}
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_INIT_ADMIN_TOKEN}
-      - DOCKER_INFLUXDB_INIT_MODE=${INFLUXDB_INIT_MODE}
-    healthcheck:
-      test: "curl -f http://localhost:8086/ping"
-      interval: 5s
-      timeout: 10s
-      retries: 5
+      - DOCKER_INFLUXDB_INIT_USERNAME=qumulo
+      - DOCKER_INFLUXDB_INIT_PASSWORD=Admin123
+      - DOCKER_INFLUXDB_INIT_ORG=qumulo
+      - DOCKER_INFLUXDB_INIT_BUCKET=DO_NOT_TOUCH
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=36r2JNh87NlYYChGdPMikuMEMf7zh5dImkcl-mwMfx0eUwvCs34Vj11y5SctXLvmkZmPGl9R0qvnAQSQxMH-Xw==
+      - DOCKER_INFLUXDB_INIT_MODE=setup
 
-  Grafana:
-    image: grafana/grafana-oss:${GRAFANA_VERSION:-9.4.7}
-    hostname: grafana
-    container_name: Grafana
-    networks:
-      - qumuloalerts
-    ports:
-      - 3000:3000
-    depends_on:
-      InfluxDB:
-        condition: service_healthy
-    volumes:
-      - ./grafana-storage:/var/lib/grafana:rw
-      - ./grafana-configs/provisioning/:/etc/grafana/provisioning/:rw
-      - ./grafana-configs/grafana.ini:/etc/grafana/grafana.ini:rw
-    environment:
-      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
-      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
-      - GF_USERS_ALLOW_SIGN_UP=${GF_USERS_ALLOW_SIGN_UP}
-      - INFLUXDB_TOKEN=${INFLUXDB_INIT_ADMIN_TOKEN}
-      
-  Exchange:
-    image: qumulo/exchange:${QUMULOALERTS_VERSION:-latest}
+  exchange:
+    image: qumulo/exchange:${QUMULOALERTS_VERSION:-6.0.0}
     hostname: exchange
-    container_name: Exchange
+    container_name: exchange
     networks:
       - qumuloalerts
     ports:
       - 5672:5672
       - 15672:15672
-    healthcheck:
-      test: "rabbitmq-diagnostics check_port_connectivity"
-      interval: 30s
-      timeout: 30s
-      retries: 10
 
-  Alerts:
-    image: qumulo/alerts:${QUMULOALERTS_VERSION:-6.0.1}
+  alerts:
+    image: qumulo/alerts:${QUMULOALERTS_VERSION:-6.0.0}
     hostname: alerts
-    container_name: Alerts
+    container_name: alerts
     networks:
       - qumuloalerts
-    ports:
-      - 8000:8000
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      Exchange:
-        condition: service_healthy
-      AlertsDB:
-        condition: service_healthy
-      InfluxDB:
-        condition: service_healthy
+      - type: bind
+        source: ${ALERTS_CONFIGDIR:-./config/alerts/}
+        target: /code/config/alerts/
+
+  email:
+    image: qumulo/email:${QUMULOALERTS_VERSION:-6.0.0}
+    hostname: email
+    container_name: email
+    networks:
+      - qumuloalerts
+    volumes:
+      - type: bind
+        source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
+        target: /code/config/consumer/
+
+  clicksend:
+    image: qumulo/clicksend:${QUMULOALERTS_VERSION:-6.0.0}
+    hostname: clicksend
+    container_name: clicksend
+    networks:
+      - qumuloalerts
+    volumes:
+      - type: bind
+        source: ${CONSUMER_CONFIGDIR:-./config/consumer/}
+        target: /code/config/consumer/
+
+volumes:
+  data:
+    external: true
+  config:
+    external: true
+  backup:
+    external: true
 
 networks:
   qumuloalerts:

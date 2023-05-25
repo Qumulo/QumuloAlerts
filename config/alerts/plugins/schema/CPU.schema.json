@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CPU",
+    "description": "A schema for setting deviation on CPU temperature",
+    "type": "object",
+    "properties":
+    {
+        "cpu_temperature":
+        {
+            "type": "object",
+            "properties":
+            {
+		"thresholds": {"$ref": "/config/thresholds"}
+            },
+            "additionalProperties": false,
+            "required": ["thresholds"]
+        }
+    },
+    "additionalProperties": false,
+    "required": ["cpu_temperature"],
+
+    "$defs":
+    {
+        "$comment": "Array definition for Threshold amounts",
+        "thresholds":
+        {
+            "$id": "/config/thresholds",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Thresholds",
+            "description": "Threshold amounts",
+            "type": "object",
+            "properties":
+            {
+                "critical": {"type": "integer"},
+                "error": {"type": "integer"},
+                "warning": {"type": "integer"}
+            },
+            "additionalProperties": false,
+            "required": ["critical", "error", "warning"]
+        }
+    }
+}

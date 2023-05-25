@@ -1,0 +1,21 @@
+{
+    "url": "http://influxdb:8086",
+    "org": "qumulo",
+    "token": "36r2JNh87NlYYChGdPMikuMEMf7zh5dImkcl-mwMfx0eUwvCs34Vj11y5SctXLvmkZmPGl9R0qvnAQSQxMH-Xw==",
+    "buckets":
+    [
+        {
+            "name": "Qumulo Alerts Metrics",
+            "description": "Bucket to store OpenMetrics data from a Qumulo cluster",
+            "type": "metrics",
+            "retention": 7776000
+        },
+        {
+            "name": "Qumulo Alerts Alarms",
+            "description": "Bucket to store alarms and alerts received from QumuloAlerts",
+            "type": "alerts",
+            "retention": 31536000
+        }
+    ]
+}
+

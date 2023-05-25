@@ -1,0 +1,30 @@
+{
+    "default_quota_rules":
+    {
+        "thresholds":
+        {
+            "critical": 90,
+            "error": 75,
+            "warning": 50
+        }
+    },
+    "quota_rules":
+    [
+        {
+            "cluster_name": "cluster_1",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds": {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        },
+        {
+            "cluster_name": "cluster_2",
+            "quotas":
+            [
+                {"quota_path": "/root/joe", "thresholds":  {"critical": 90, "error": 70, "warning": 40}},
+                {"quota_path": "/root/mike", "thresholds":  {"critical": 90, "error": 70, "warning": 40}}
+            ]
+        }
+    ]
+}
