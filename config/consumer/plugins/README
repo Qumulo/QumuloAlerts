@@ -1,4 +1,0 @@
-This directory holds any config files need for consumer plugins.
-
-Right now, there are none... Most of the configuration for plugins
-occurs at the publisher level.
