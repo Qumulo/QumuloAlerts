@@ -1,0 +1,1 @@
+       ('NOTIFY_SOFTQUOTAS', 'Alerts', 'Softquotas', 'Notification when a soft quota has reached certain thresholds of capacity: I.E: 70, 80, 90%'),

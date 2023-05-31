@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    uid: 9nOXzqPVk
+    type: influxdb
+    access: proxy
+    url: http://InfluxDB:8086
+    orgId: 1
+    jsonData:
+      httpMode: POST
+      organization: qumulo
+      version: Flux
+    basicAuth: true
+    secureJsonData:
+      token: ${INFLUXDB_TOKEN}
+    isDefault: true
+    readOnly: false 
