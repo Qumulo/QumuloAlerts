@@ -15,6 +15,11 @@ export CONSUMER_CONFIGDIR=$(pwd)/config/consumer/
 
 docker network create --driver bridge --attachable qumuloalerts
 
+# We need to make sure that the Grafana storage location has all
+# permissions or it will fail
+
+chmod 777 grafana-storage
+
 # If you have a docker swarm, then uncomment the following line and
 # comment the line on "docker-compose up"
 
