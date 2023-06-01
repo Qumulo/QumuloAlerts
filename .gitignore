@@ -1,0 +1,30 @@
+# We don't want to push anything back to git inadvertently
+
+# Alerts programs
+
+alerts.*
+
+# Don't push any influxdb DB files
+
+influxdb-storage
+
+# Don't push the Grafana Storage or Config directories
+
+grafana-storage
+grafana-configs
+
+# Don't push the AlertsDB
+
+alerts-storage
+
+# Don't push the docker-compose.yml file
+
+*.yml
+
+# Don't push the bash shell scripts
+
+*.sh
+
+# Don't push the environment variables used to start our docker images
+
+.env
