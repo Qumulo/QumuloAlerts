@@ -3,7 +3,7 @@
 export MARIADB_VERSION=latest
 
 export INFLUXDB_VERSION=2.6.1
-export INFLUXDB_CONFIGDIR=$(PWD)/influxdb/config
+export INFLUXDB_CONFIGDIR=$(pwd)/influxdb/config
 
 export QUMULOALERTS_VERSION=6.0.1
 export ALERTS_CONFIGDIR=$(pwd)/config/alerts/
