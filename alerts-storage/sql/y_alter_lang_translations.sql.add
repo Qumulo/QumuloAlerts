@@ -1,0 +1,11 @@
+use alerts;
+
+# Drop old index on lang_translations
+
+drop index if exists locale on lang_translations;
+
+# Create a new index on lang_translations
+
+create unique index if not exists name on lang_translations (locale, lookup_name);
+
+

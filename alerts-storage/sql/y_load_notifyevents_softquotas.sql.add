@@ -1,0 +1,17 @@
+use alerts;
+
+# Load new Softquota Notify Event
+
+insert ignore into notifyevents
+       (name, category, subcategory, description)
+   values
+       ('NOTIFY_SOFTQUOTAS', 'Alerts', 'Softquotas', 'Notification when a soft quota has reached certain thresholds of capacity: I.E: 70, 80, 90%');
+
+# Make sure to update the assoc_notifyevents table as well
+
+insert ignore into assoc_notifyevents(group_id, event_id)
+       select r.id as group_id, p.id as event_id
+       from notifygroup r
+       inner join notifyevents p
+       where r.name = "NotifyAll" and p.name = "NOTIFY_SOFTQUOTAS";
+

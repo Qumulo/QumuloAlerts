@@ -1,0 +1,44 @@
+use alerts;
+
+# Update corrected language translations into DB
+
+insert into lang_translations
+       (id, locale, lookup_name, message)
+   values
+       (89, "en_GB", "ad-modified", "The AD configuration has been modified. Change is '{ad_change}'"),
+       (201, "en_US", "ad-modified", "The AD configuration has been modified. Change is '{ad_change}'"),
+       (313, "fr_BE", "ad-modified", "Les configurations AD ont été modifiées. Le changement est '{ad_change}'"),
+       (425, "fr_CA", "ad-modified", "Les configurations AD ont été modifiées. Le changement est '{ad_change}'"),
+       (537, "fr_FR", "ad-modified", "Les configurations AD ont été modifiées. Le changement est '{ad_change}'"),
+       (649, "de_AT", "ad-modified", "Die AD-Konfigurationen wurden geändert. Änderung ist '{ad_change}'"),
+       (761, "de_DE", "ad-modified", "Die AD-Konfigurationen wurden geändert. Änderung ist '{ad_change}'"),
+       (873, "de_CH", "ad-modified", "Die AD-Konfigurationen wurden geändert. Änderung ist '{ad_change}'"),
+       (985, "hu_HU", "ad-modified", "Az AD-konfigurációk módosítva. A változás '{ad_change}'"),
+       (1097, "it_IT", "ad-modified", "La configurazione di Active Directory è stata modificata. La modifica è '{ad_change}'"),
+       (1209, "it_CH", "ad-modified", "La configurazione di Active Directory è stata modificata. La modifica è '{ad_change}'"),
+       (1321, "ja_JP", "ad-modified", "ADの設定が修正されました 変更は。変更は「{ad_change}」です"),
+       (1433, "ko_KR", "ad-modified", "AD 설정이 수정되었습니다. 변경은 '{ad_change}'입니다."),
+       (1545, "zh_TW", "ad-modified", "AD 配置已修改。 變化是'{ad_change}'"),
+       (1663, "pl_PL", "ad-modified", "Konfiguracje AD zostały zmodyfikowane. Zmiana to '{ad_change}'"),
+       (1775, "pt_BR", "ad-modified", "As configurações do AD foram modificadas. A alteração é '{ad_change}'"),
+       (1887, "pt_PT", "ad-modified", "As configurações do AD foram modificadas. A alteração é '{ad_change}'"),
+       (2013, "sk_SK", "ad-modified", "Konfigurácie AD boli upravené. Zmena je '{ad_change}'"),
+       (2126, "es_ES", "ad-modified", "La configuración de AD ha sido modificada. El cambio es '{ad_change}'"),
+       (2238, "tr_TR", "ad-modified", "AD yapılandırmaları değiştirildi. Değişiklik '{ad_change}'"),
+       (772, "de_DE", "cluster-capacity-full", "Die Clusterkapazität ist voll"),
+       (773, "de_DE", "cluster-capacity-percent", "Der Cluster ist bei {percentage} Prozent der Kapazität"),
+       (774, "de_DE", "switch-unknown-status", "Ethernet-Switch kann {status} sein"),
+       (775, "de_DE", "switch-status", "Ethernet-Switch ist {status}"),
+       (776, "de_DE", "cluster-capacity-projection-warning", "Basierend auf dem Verlauf wird der Cluster in {number_of_days} Tagen voll sein"),
+       (777, "de_DE", "high-read-iops", "Basierend auf dem Verlauf weist der Cluster höhere Lese-IOPS-Zahlen auf"),
+       (778, "de_DE", "high-write-iops", "Basierend auf dem Verlauf weist der Cluster höhere Schreib-IOPS-Zahlen auf"),
+       (779, "de_DE", "high-read-throughput", "Basierend auf dem Verlauf weist der Cluster höhere Lesedurchsatzzahlen auf"),
+       (780, "de_DE", "high-write-throughput", "Basierend auf dem Verlauf weist der Cluster höhere Schreibdurchsatzzahlen auf"),
+       (781, "de_DE", "high-read-latency", "Basierend auf dem Verlauf weist der Cluster höhere Leselatenzzahlen auf"),
+       (782, "de_DE", "high-write-latency", "Basierend auf dem Verlauf weist der Cluster höhere Schreiblatenzzahlen auf"),
+       (783, "de_DE", "high-metadata-latency", "Basierend auf dem Verlauf weist der Cluster höhere Metadaten-Latenzzahlen auf"),
+       (784, "de_DE", "cpu-overtemp", "CPU {cpu_name} hat eine Temperatur von {temperature} C")
+   on duplicate key update
+       locale = values(locale),
+       lookup_name = values(lookup_name),
+       message = values(message);

@@ -1,0 +1,8 @@
+use alerts;
+
+# Add any new role permissions that are required for a collector to successfully run
+
+insert ignore into rolesrequired
+       (role_name)
+   values
+       ("PRIVILEGE_FILE_FULL_ACCESS");

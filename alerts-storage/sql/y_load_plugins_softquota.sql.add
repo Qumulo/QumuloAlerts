@@ -1,0 +1,8 @@
+use alerts;
+
+# Load new Softquota plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('Softquotas', 'Alerts', 'Get Softquota Notifications');
