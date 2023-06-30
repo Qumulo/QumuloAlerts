@@ -225,7 +225,7 @@ create table if not exists lang_translations (
        lookup_name varchar(64) not null,
        message varchar(1024) not null);
 
-create index locale on lang_translations (locale);
+create unique index name on lang_translations (locale, lookup_name);
 
 # Metrics connection to InfluxDB
 
