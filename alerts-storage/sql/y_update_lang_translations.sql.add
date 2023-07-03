@@ -2,7 +2,7 @@ use alerts;
 
 # Update corrected language translations into DB
 
-insert into lang_translations
+insert ignore into lang_translations
        (id, locale, lookup_name, message)
    values
        (89, "en_GB", "ad-modified", "The AD configuration has been modified. Change is '{ad_change}'"),
