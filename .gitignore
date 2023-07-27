@@ -2,6 +2,7 @@
 
 # Alerts programs
 
+alerts
 alerts.*
 
 # Don't push any influxdb DB files
