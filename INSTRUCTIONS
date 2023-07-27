@@ -1,0 +1,64 @@
+HOW TO START AND STOP QUMULO ALERTS
+
+STARTING QUMULO ALERTS
+
+There are two possible scenario's for starting Qumulo Alerts and they depend upon how you
+are logged into your Linux distro.
+
+Qumulo Alerts needs to run as root for correct operation. So, if you are logged in as
+anything other than root, then you should start Qumulo Alerts by typing the following:
+
+1) sudo ./start-docker-qumulo-alerts.sh
+
+If you are logged in as root, then the command is:
+
+1) ./start-docker-qumulo-alerts.sh
+
+STOPPING QUMULO ALERTS
+
+Much like starting Qumulo Alerts, stopping Qumulo Alerts depends on whether you are logged
+in as root or not.
+
+1) sudo ./stop-docker-qumulo-alerts.sh  (NOT logged in as root)
+2) ./stop-docker-qumulo-alerts.sh       (logged in as root)
+
+RUNNING ALERTS CLI PROGRAM
+
+There are are five different distro's for the Alerts CLI program. Each distro is
+based upon the type of system you are running on.
+
+1) Mac - alerts.macos-latest
+2) Ubuntu 20 - alerts.ubuntu-20.04
+3) Ubuntu 22 - alerts.ubuntu-latest
+4) Windows - alerts.windows-latest
+5) Redhat 8 - alerts.redhat-8
+
+In order to communicate with Qumulo Alerts, find the correct alerts CLI program based
+upon your distro. If you are running on a Mac, Redhat, or Ubuntu, the easiest way to
+run the alerts CLI would be to create a symbolic link to the correct distro. For instance,
+if you are running on Ubuntu 20, the correct command would be:
+
+1) ln -s ./alerts.ubuntu-20.04 alerts
+
+Finally, make sure that you have set the execute permission on the CLI program. Using
+the above example, the command would be:
+
+1) sudo chmod u+x alerts.ubuntu-20.04 (not logged in as root)
+2) chmod u+x alerts.ubuntu-20.04 (logged in a root)
+
+WINDOWS VERSION OF ALERTS CLI
+
+Copy the alerts.windows-latest.exe to your Windows machine
+
+In order to run the Windows version of Alerts CLI, you will need to make sure that you
+use the --host option on the CLI. So, if Qumulo Alerts is running on the machine called
+"ac1-100g.somecompany.net", the command to run the Windows Alerts CLI would be:
+
+1) alerts.windows-latest.exe --host ac1-100g.somecompany.net SUBCOMMAND OPTIONS
+
+Let's take an example and login to Qumulo Alerts. The command would be:
+
+1) alerts.windows-latest.exe --host ac1-100g.somecompany.net login -u admin
+
+
+
