@@ -91,7 +91,7 @@ services:
     restart: unless-stopped
 
   Alerts:
-    image: qumulo/alerts:${QUMULOALERTS_VERSION:-6.1.2}
+    image: qumulo/alerts:${QUMULOALERTS_VERSION:-6.0.2}
     hostname: alerts
     container_name: Alerts
     networks:
