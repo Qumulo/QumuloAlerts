@@ -9,7 +9,8 @@ insert into plugins
        ('Disks', 'Alarms', 'Get Disk State Information'),
        ('Fans', 'Alarms', 'Get Fan Failures'),
        ('Network', 'Alarms', 'Get Network Link Failures'),
-       ('Nodes', 'Alarms', 'Get Cluster Node Failures');
+       ('Nodes', 'Alarms', 'Get Cluster Node Failures'),
+       ('PSU', 'Alarms', 'Get Power Supply Failures Failures');
 
 # Alerts Plugins
 

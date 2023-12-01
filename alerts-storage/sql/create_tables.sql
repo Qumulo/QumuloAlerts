@@ -63,6 +63,8 @@ create table if not exists quotas (
        user_notification boolean default 0,
        admin_notification boolean default 1,
        user_mode varchar(32),
+       admin_email varchar(256),
+       email_suffix varchar(32),
        user_email varchar(256));
 
 # Default Quota thresholds to be monitored
@@ -75,6 +77,8 @@ create table if not exists defaultquota (
        warning int not null,
        user_notification boolean default 0,
        admin_notification boolean default 1,
+       admin_email varchar(256),
+       email_suffix varchar(32),
        user_mode varchar(32) default 'owner');
 
 # Capacity thresholds to be monitored. This is the capacity of the entire cluster
@@ -97,6 +101,8 @@ create table if not exists softquotas (
        user_notification boolean default 0,
        admin_notification boolean default 1,
        user_mode varchar(32),
+       admin_email varchar(256),
+       email_suffix varchar(32),
        user_email varchar(256));
 
 # ClickSend SMS configuration

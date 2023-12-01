@@ -1,25 +1,25 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+      "list": [
+          {
+              "builtIn": 1,
+              "datasource": {
+                  "type": "grafana",
+                  "uid": "-- Grafana --"
+              },
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "target": {
+                  "limit": 100,
+                  "matchAny": false,
+                  "tags": [],
+                  "type": "dashboard"
+              },
+              "type": "dashboard"
+          }
+      ]
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
@@ -28,1846 +28,3284 @@
   "links": [],
   "liveNow": false,
   "panels": [
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 36,
-      "panels": [],
-      "title": "Cluster Info",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 0
           },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+          "id": 36,
+          "panels": [],
+          "title": "Cluster Info",
+          "type": "row"
       },
-      "gridPos": {
-        "h": 4,
-        "w": 15,
-        "x": 0,
-        "y": 1
-      },
-      "id": 7,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
-          }
-        ]
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"qumulo_info\"\nfields = [\"cluster_name\",\"uuid\",\"max_drive_failures\", \"max_node_failures\", \"platform\",\"service_model\", \"version\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {cluster_name: \"Cluster Name\", uuid: \"UUID\",platform: \"Platform\",max_drive_failures: \"Max Drive Failures\", max_node_failures: \"Max Node Failures\", service_model: \"Service Model\", version: \"Version\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "Cluster Details",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "center",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 4,
+              "w": 15,
+              "x": 0,
+              "y": 1
+          },
+          "id": 7,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Cluster Name": 0,
-              "Max Drive Failures": 3,
-              "Max Node Failures": 4,
-              "Platform": 5,
-              "Service Model": 6,
-              "UUID": 1,
-              "Version": 2
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": false,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 15,
-        "y": 1
-      },
-      "id": 12,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
-          }
-        ]
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
+                  }
+              ]
           },
-          "hide": false,
-          "query": "measurement = \"alerts_ad_info\"\nfields = [\"domain\",\"base_dn\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {domain: \"Domain\", base_dn: \"Base DN\"})\n\n",
-          "refId": "B"
-        }
-      ],
-      "title": "Domain",
-      "transformations": [
-        {
-          "id": "organize",
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"qumulo_info\"\nfields = [\"cluster_name\",\"uuid\",\"max_drive_failures\", \"max_node_failures\", \"platform\",\"service_model\", \"version\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {cluster_name: \"Cluster Name\", uuid: \"UUID\",platform: \"Platform\",max_drive_failures: \"Max Drive Failures\", max_node_failures: \"Max Node Failures\", service_model: \"Service Model\", version: \"Version\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "Cluster Details",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Cluster Name": 0,
+                          "Max Drive Failures": 3,
+                          "Max Node Failures": 4,
+                          "Platform": 5,
+                          "Service Model": 6,
+                          "UUID": 1,
+                          "Version": 2
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "center",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 4,
+              "w": 5,
+              "x": 15,
+              "y": 1
+          },
+          "id": 12,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Base DN": 1,
-              "Domain": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": false,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
               },
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
+                  }
+              ]
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
               {
-                "color": "red",
-                "value": 80
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_ad_info\"\nfields = [\"domain\",\"base_dn\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {domain: \"Domain\", base_dn: \"Base DN\"})\n\n",
+                  "refId": "B"
               }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 16,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
           ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
-          }
-        ]
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
-          },
-          "hide": false,
-          "query": "measurement = \"alerts_audit_info\"\nfields = [\"server_address\",\"server_port\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {server_address: \"Syslog Server\", server_port: \"Port\"})\n\n",
-          "refId": "B"
-        }
-      ],
-      "title": "Syslog Server",
-      "type": "table"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 5
-      },
-      "id": 34,
-      "panels": [],
-      "title": "Users and Groups",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "title": "Domain",
+          "transformations": [
               {
-                "color": "green",
-                "value": null
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Base DN": 1,
+                          "Domain": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "center",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Primary Group"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 143
-              }
-            ]
+              "overrides": []
           },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "UID"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 132
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 0,
-        "y": 6
-      },
-      "id": 18,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+          "gridPos": {
+              "h": 4,
+              "w": 4,
+              "x": 20,
+              "y": 1
           },
-          "hide": false,
-          "query": "measurement = \"alerts_users_info\"\nfields = [\"name\",\"uid\", \"primary_group\", \"sid\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"name\")\n  |> rename(columns: {name: \"User Name\", uid: \"UID\", primary_group: \"Primary Group\", sid: \"SID\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "Local Users",
-      "transformations": [
-        {
-          "id": "organize",
+          "id": 712,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Primary Group": 2,
-              "SID": 3,
-              "UID": 1,
-              "User Name": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": false,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 12,
-        "y": 6
-      },
-      "id": 17,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
-          }
-        ]
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "_value {_field=\"value\", _start=\"2023-04-25 23:03:21.013 +0000 UTC\", _stop=\"2023-04-26 00:03:21.013 +0000 UTC\", cluster_name=\"groot.eng.qumulo.com\", max_drive_failures=\"2\", max_node_failures=\"1\", name=\"groot\", platform=\"hardware\", service_model=\"self_hosted\", uuid=\"af6d3031-a169-4f5c-a569-aa65b90327ef\", version=\"Qumulo Core 6.0.2\"}"
+                  }
+              ]
           },
-          "hide": false,
-          "query": "measurement = \"alerts_groups_info\"\nfields = [\"name\",\"gid\", \"sid\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"name\")\n  |> rename(columns: {name: \"Group Name\", gid: \"GID\", sid: \"SID\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "Local Groups",
-      "transformations": [
-        {
-          "id": "organize",
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_audit_info\"\nfields = [\"server_address\",\"server_port\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {server_address: \"Syslog Server\", server_port: \"Port\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "Domain",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Base DN": 1,
+                          "Domain": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 5
+          },
+          "id": 45,
+          "panels": [],
+          "title": "Capacity",
+          "type": "row"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "description": "",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      }
+                  },
+                  "mappings": [],
+                  "unit": "bytes"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"data\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "data"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"metadata\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "metadata"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#82bfce",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"snapshot\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "snapshot"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00be82",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_free_bytes value {cluster_name=\"([^\"]+)\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "free"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#8080801c",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 7,
+              "x": 0,
+              "y": 6
+          },
+          "id": 431,
+          "links": [],
+          "maxDataPoints": 50000,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "GID": 1,
-              "Group Name": 0,
-              "SID": 2
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 12
-      },
-      "id": 32,
-      "panels": [],
-      "title": "Quotas",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+              "displayLabels": [
+                  "percent"
+              ],
+              "legend": {
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "values": []
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
           },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "pluginVersion": "9.4.7",
+          "targets": [
               {
-                "color": "green",
-                "value": null
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"data\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "A"
               },
               {
-                "color": "red",
-                "value": 80
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_free_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> yield(name: \"last\")",
+                  "refId": "B"
+              },
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"metadata\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "C"
+              },
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"snapshot\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "D"
               }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 13
-      },
-      "id": 22,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
           ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
-          }
-        ]
+          "title": "Capacity",
+          "transformations": [],
+          "type": "piechart"
       },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "import \"join\"\n\nmeasurement = \"alerts_quota_entries\"\nfields = [\"path\", \"limit\", \"capacity_usage\"]\n\nleft =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"capacity_usage\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group()\n    |> unique(column: \"path\")\n\nright =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"limit\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group()\n    |> unique(column: \"path\")\n\njoin.full(\n    left: left,\n    right: right,\n    on: (l, r) => l.path == r.path,\n    as: (l, r) => {\n        path = if exists l.path then l.path else r.path\n\n        return {path: path, capacity_usage: l._value, limit: r._value}\n    },\n)\n|> rename(columns: {path: \"Path\", limit: \"Limit\", capacity_usage: \"Capacity Usage\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "Quotas",
-      "transformations": [
-        {
-          "id": "organize",
+          "description": "",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 36,
+                      "gradientMode": "opacity",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "bytes"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"data\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "data"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"metadata\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "metadata"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#82bfce",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_directory_used_bytes value {cluster_name=\"([^\"]+)\", path=\"\\/\", usage_type=\"snapshot\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "snapshot"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00be82",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "/qumulo_fs_free_bytes value {cluster_name=\"([^\"]+)\"}/"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "free"
+                          },
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#8080801c",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 6,
+              "x": 7,
+              "y": 6
+          },
+          "id": 591,
+          "links": [],
+          "maxDataPoints": 50000,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity Usage": 1,
-              "Limit": 2,
-              "Path": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
           },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "pluginVersion": "9.4.7",
+          "targets": [
               {
-                "color": "green",
-                "value": null
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"data\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "A"
               },
               {
-                "color": "red",
-                "value": 80
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_free_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> yield(name: \"last\")",
+                  "refId": "B"
+              },
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"metadata\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "C"
+              },
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_used_bytes\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"usage_type\"] == \"snapshot\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "D"
               }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
+          ],
+          "title": "Capacity History",
+          "transformations": [],
+          "type": "timeseries"
       },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 20
-      },
-      "id": 23,
-      "maxPerRow": 8,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "QuotaPath",
-      "repeatDirection": "h",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "import \"join\"\n\nmeasurement = \"alerts_quota_entries\"\nfields = [\"path\", \"limit\", \"capacity_usage\"]\n\nleft =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"path\"] == \"${QuotaPath}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"capacity_usage\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group(columns: [\"path\"])\n\nright =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"path\"] == \"${QuotaPath}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"limit\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group(columns: [\"path\"])\n\njoin.full(\n    left: left,\n    right: right,\n    on: (l, r) => l.path == r.path and l._time == r._time,\n    as: (l, r) => {\n        time = if exists l._time then l._time else r._time\n        path = if exists l.path then l.path else r.path\n\n        return {_time: time, path: path, capacity_usage: l._value, limit: r._value}\n    },\n)\n|> rename(columns: {path: \"Path\", limit: \"Limit\", capacity_usage: \"Capacity Usage\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "${QuotaPath}",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      }
+                  },
+                  "displayName": "${__field.labels.entry_type}",
+                  "mappings": [],
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 6,
+              "x": 13,
+              "y": 6
+          },
+          "id": 8,
+          "maxDataPoints": 50000,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity Usage": 1,
-              "Limit": 2,
-              "Path": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 28
-      },
-      "id": 30,
-      "panels": [],
-      "title": "SMB Shares",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "displayLabels": [
+                  "percent"
+              ],
+              "legend": {
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              {
-                "color": "red",
-                "value": 80
+              "pieType": "donut",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 29
-      },
-      "id": 20,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_directory_tree_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n  ",
+                  "refId": "A"
+              }
           ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
-          }
-        ]
+          "title": "Data Types",
+          "type": "piechart"
       },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"alerts_share_entries\"\nfields = [\"fs_path\",\"share_name\", \"_value\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"share_name\")\n  |> rename(columns: {fs_path: \"File System Path\", share_name: \"Share Name\", _value: \"Capacity\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "SMB Shares",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  }
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 5,
+              "x": 19,
+              "y": 6
+          },
+          "id": 51,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity": 2,
-              "File System Path": 1,
-              "Share Name": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "displayName": "${__field.labels.entry_type}",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": false
               },
-              {
-                "color": "red",
-                "value": 80
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "decbytes"
-        },
-        "overrides": []
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fs_snapshots\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "Snapshot Count",
+          "type": "timeseries"
       },
-      "gridPos": {
-        "h": 8,
-        "w": 2.4,
-        "x": 0,
-        "y": 37
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 14
+          },
+          "id": 43,
+          "panels": [],
+          "title": "Performance",
+          "type": "row"
       },
-      "id": 42,
-      "maxPerRow": 12,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "ShareName",
-      "repeatDirection": "h",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"alerts_share_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"share_name\"] == \"${ShareName}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "B"
-        }
-      ],
-      "title": "${ShareName}",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  },
+                  "unit": "binBps"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", data_type=\"data\", io_type=\"read\", op_name=\"nfs3_read\", protocol=\"nfs\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#aa7edd",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", data_type=\"data\", io_type=\"write\", op_name=\"nfs3_write\", protocol=\"nfs\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "read"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#aa7edd",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "write"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 0,
+              "y": 15
+          },
+          "id": 10,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity": 2,
-              "File System Path": 1,
-              "Share Name": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "displayName": "${__field.labels.entry_type}",
-          "mappings": [],
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 2.4,
-        "x": 0,
-        "y": 45
-      },
-      "id": 63,
-      "maxPerRow": 12,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "ShareName",
-      "repeatDirection": "h",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
-          },
-          "hide": false,
-          "query": "measurement = \"alerts_share_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"share_name\"] == \"${ShareName}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"alternative_data_stream\" or r[\"entry_type\"] == \"file\" or r[\"entry_type\"] == \"directory\" or r[\"entry_type\"] == \"other\" or r[\"entry_type\"] == \"symlink\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")\n",
-          "refId": "B"
-        }
-      ],
-      "title": "${ShareName}",
-      "transformations": [],
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 53
-      },
-      "id": 44,
-      "panels": [],
-      "title": "NFS Exports",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              {
-                "color": "red",
-                "value": 80
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 54
-      },
-      "id": 19,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": "",
-          "reducer": [
-            "sum"
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_bytes_total_total\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"io_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true) \n  |> yield(name: \"rate\")\n",
+                  "refId": "A"
+              }
           ],
-          "show": false
-        },
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
-          }
-        ]
+          "title": "Throughput",
+          "type": "timeseries"
       },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"alerts_export_entries\"\nfields = [\"fs_path\",\"export_path\", \"_value\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"export_path\")\n  |> rename(columns: {fs_path: \"File System Path\", export_path: \"Export Path\", _value: \"Capacity\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "NFS Exports",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  },
+                  "unit": "binBps"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", data_type=\"data\", io_type=\"read\", op_name=\"nfs3_read\", protocol=\"nfs\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#aa7edd",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", data_type=\"data\", io_type=\"write\", op_name=\"nfs3_write\", protocol=\"nfs\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "read"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#aa7edd",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "write"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 8,
+              "y": 15
+          },
+          "id": 833,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity": 2,
-              "Export Path": 1,
-              "File System Path": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "displayName": "${__field.labels.entry_type}",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              {
-                "color": "red",
-                "value": 80
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "decbytes"
-        },
-        "overrides": []
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operations_total_total\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"io_type\"] != \"none\") \n  |> group(columns: [\"io_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true) \n  |> yield(name: \"rate\")\n",
+                  "refId": "A"
+              }
+          ],
+          "title": "IOPS",
+          "type": "timeseries"
       },
-      "gridPos": {
-        "h": 9,
-        "w": 4.8,
-        "x": 0,
-        "y": 62
-      },
-      "id": 53,
-      "maxPerRow": 12,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "ExportPath",
-      "repeatDirection": "h",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"alerts_export_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"export_path\"] == \"${ExportPath}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "B"
-        }
-      ],
-      "title": "${ExportPath}",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "displayName": "${__field.labels.data_type} ${__field.labels.protocol} ${__field.labels.io_type}",
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  },
+                  "unit": "ms"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 16,
+              "y": 15
+          },
+          "id": 49,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity": 2,
-              "Export Path": 1,
-              "File System Path": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
           },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "displayName": "${__field.labels.entry_type}",
-          "mappings": [],
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 71
-      },
-      "id": 73,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "// Fetch the sum metric and group it\nsumMetric = from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_latency_seconds_sum\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"protocol\", \"io_type\", \"data_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true)\n  |> rename(columns: {_value: \"sum_value\"})\n\n// Fetch the count metric and group it\ncountMetric = from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_latency_seconds_count\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"protocol\", \"io_type\", \"data_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true)\n  |> rename(columns: {_value: \"count_value\"})\n\n// Join the metrics\njoinedData = join(\n  tables: {sum: sumMetric, count: countMetric},\n  on: [\"_time\", \"protocol\", \"io_type\", \"data_type\"]\n)\n\n// Calculate the ratio with division by zero handling\nresult = joinedData\n  |> map(fn: (r) => ({\n      _time: r._time,\n      protocol: r.protocol,\n      io_type: r.io_type,\n      data_type: r.data_type,\n      ratio: if r.count_value == 0 then 0.0 else r.sum_value / r.count_value\n  }))\n  |> yield(name: \"latency_ratio\")\n",
+                  "refId": "A"
+              }
           ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+          "title": "Latency",
+          "transformations": [],
+          "type": "timeseries"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "ExportPath",
-      "repeatDirection": "h",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "measurement = \"alerts_export_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"export_path\"] == \"${ExportPath}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"alternative_data_stream\" or r[\"entry_type\"] == \"file\" or r[\"entry_type\"] == \"directory\" or r[\"entry_type\"] == \"other\" or r[\"entry_type\"] == \"symlink\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "B"
-        }
-      ],
-      "title": "${ExportPath}",
-      "transformations": [
-        {
-          "id": "organize",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  }
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*ftp\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "ftp"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*smb\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "smb"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*nfs\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "nfs"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*rest\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "rest"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*s3\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "s3"
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 9,
+              "w": 4,
+              "x": 0,
+              "y": 24
+          },
+          "id": 554,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Capacity": 2,
-              "Export Path": 1,
-              "File System Path": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 87
-      },
-      "id": 93,
-      "panels": [],
-      "title": "Node Details",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "textMode": "auto"
           },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "index": 1,
-                  "text": "UP"
-                },
-                "1": {
-                  "index": 0,
-                  "text": "DOWN"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "pluginVersion": "10.2.0",
+          "targets": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "Cluster = \"${Cluster}\"\n\n// Define a function to create a dataset for a given protocol\ncreateDatasetForProtocol = (protocol) => {\n  connections = from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_client_connections_total_total\")\n    |> filter(fn: (r) => r[\"cluster_name\"] == Cluster)\n    |> filter(fn: (r) => r[\"protocol\"] == protocol)\n    |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n\n  disconnections = from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_client_disconnections_total_total\")\n    |> filter(fn: (r) => r[\"cluster_name\"] == Cluster)\n    |> filter(fn: (r) => r[\"protocol\"] == protocol)\n    |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n\n  return join(\n      tables: {conn: connections, disconn: disconnections},\n      on: [\"_time\", \"cluster_name\", \"protocol\"]\n  )\n  |> map(fn: (r) => ({ _time: r._time, _value: r._value_conn - r._value_disconn, cluster_name: r.cluster_name, protocol: r.protocol }))\n}\n\n// Creating and yielding datasets for each protocol\ncreateDatasetForProtocol(protocol: \"ftp\")\n  |> yield(name: \"ftpData\")\n\ncreateDatasetForProtocol(protocol: \"smb\")\n  |> yield(name: \"smbData\")\n\ncreateDatasetForProtocol(protocol: \"nfs\")\n  |> yield(name: \"nfsData\")\n\ncreateDatasetForProtocol(protocol: \"rest\")\n  |> yield(name: \"restData\")\n\ncreateDatasetForProtocol(protocol: \"s3\")\n  |> yield(name: \"s3Data\")",
+                  "refId": "A"
               }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 0,
-        "y": 88
-      },
-      "id": 95,
-      "maxPerRow": 12,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
           ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
+          "title": "Current Active Client Connections",
+          "type": "stat"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_quorum_node_is_offline\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Node-${Node}",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  }
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 2,
-        "y": 88
-      },
-      "id": 167,
-      "options": {
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": false
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*ftp\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "ftp"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*s3\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "s3"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*rest\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "rest"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*nfs\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "nfs"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byRegexp",
+                          "options": "\\{cluster_name=\"[^\"]*\", protocol=\"[^\"]*smb\"\\}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "smb"
+                          }
+                      ]
+                  }
+              ]
           },
-          "hide": false,
-          "query": "measurement = \"qumulo_node_info\"\nfields = [\"node_model\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {node_model: \"Node Model\"})",
-          "refId": "B"
-        }
-      ],
-      "title": "Node Model",
-      "transformations": [
-        {
-          "id": "organize",
+          "gridPos": {
+              "h": 9,
+              "w": 6,
+              "x": 4,
+              "y": 24
+          },
+          "id": 553,
           "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Cluster Name": 0,
-              "Max Drive Failures": 3,
-              "Max Node Failures": 4,
-              "Platform": 5,
-              "Service Model": 6,
-              "UUID": 1,
-              "Version": 2
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "${__field.labels.fan}",
-          "mappings": [],
-          "max": 15000,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              {
-                "color": "red",
-                "value": 12000
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 4,
-        "y": 88
-      },
-      "id": 108,
-      "maxPerRow": 12,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "pluginVersion": "9.4.7",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "Cluster = \"${Cluster}\"\n\n// Define a function to create a dataset for a given protocol\ncreateDatasetForProtocol = (protocol) => {\n  connections = from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_client_connections_total_total\")\n    |> filter(fn: (r) => r[\"cluster_name\"] == Cluster)\n    |> filter(fn: (r) => r[\"protocol\"] == protocol)\n    |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n\n  disconnections = from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_client_disconnections_total_total\")\n    |> filter(fn: (r) => r[\"cluster_name\"] == Cluster)\n    |> filter(fn: (r) => r[\"protocol\"] == protocol)\n    |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n\n  return join(\n      tables: {conn: connections, disconn: disconnections},\n      on: [\"_time\", \"cluster_name\", \"protocol\"]\n  )\n  |> map(fn: (r) => ({ _time: r._time, _value: r._value_conn - r._value_disconn, cluster_name: r.cluster_name, protocol: r.protocol }))\n}\n\n// Creating and yielding datasets for each protocol\ncreateDatasetForProtocol(protocol: \"ftp\")\n  |> yield(name: \"ftpData\")\n\ncreateDatasetForProtocol(protocol: \"smb\")\n  |> yield(name: \"smbData\")\n\ncreateDatasetForProtocol(protocol: \"nfs\")\n  |> yield(name: \"nfsData\")\n\ncreateDatasetForProtocol(protocol: \"rest\")\n  |> yield(name: \"restData\")\n\ncreateDatasetForProtocol(protocol: \"s3\")\n  |> yield(name: \"s3Data\")",
+                  "refId": "A"
+              }
           ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+          "title": "Active Client Connections",
+          "type": "timeseries"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fan_speed_rpm\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Fan Speeds",
-      "transformations": [],
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  },
+                  "unit": "iops"
+              },
+              "overrides": []
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+          "gridPos": {
+              "h": 9,
+              "w": 7,
+              "x": 10,
+              "y": 24
+          },
+          "id": 6,
+          "options": {
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              {
-                "color": "#EAB839",
-                "value": 60
-              },
-              {
-                "color": "red",
-                "value": 80
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 7,
-        "y": 88
-      },
-      "id": 132,
-      "maxPerRow": 12,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_bytes_total_total\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"op_name\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true) \n  |> yield(name: \"rate\")\n",
+                  "refId": "A"
+              }
           ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+          "title": "Top Protocol Ops",
+          "type": "timeseries"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "hide": false,
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_cpu_temperature_celsius\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-          "refId": "B"
-        }
-      ],
-      "title": "CPU Temperatures",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
+          "description": "",
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 0,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "auto",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "displayName": "${__field.labels.op_name}",
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green",
+                              "value": null
+                          }
+                      ]
+                  },
+                  "unit": "s"
+              },
+              "overrides": []
           },
-          "displayName": "${__field.labels.disk_type} bay-${__field.labels.drive_bay}",
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "index": 1,
-                  "text": "HEALTHY"
-                },
-                "1": {
-                  "index": 0,
-                  "text": "UNHEALTHY"
-                }
+          "gridPos": {
+              "h": 9,
+              "w": 7,
+              "x": 17,
+              "y": 24
+          },
+          "id": 4,
+          "options": {
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
               },
-              "type": "value"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
               }
-            ]
           },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 9,
-        "y": 88
-      },
-      "id": 270,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "// Fetch the sum metric and group it\nsumMetric = from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_latency_seconds_sum\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"op_name\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true)\n  |> rename(columns: {_value: \"sum_value\"})\n\n// Fetch the count metric and group it\ncountMetric = from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operation_latency_seconds_count\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> group(columns: [\"op_name\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(unit: 1s, nonNegative: true)\n  |> rename(columns: {_value: \"count_value\"})\n\n// Join the metrics\njoinedData = join(\n  tables: {sum: sumMetric, count: countMetric},\n  on: [\"_time\", \"op_name\"]\n)\n\n// Calculate the ratio with division by zero handling\nresult = joinedData\n  |> map(fn: (r) => ({\n      _time: r._time,\n      op_name: r.op_name,\n      ratio: if r.count_value == 0 then 0.0 else r.sum_value / r.count_value\n  }))\n  |> yield(name: \"latency_ratio\")\n",
+                  "refId": "A"
+              }
           ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
+          "title": "Top Protocol Ops Latency",
+          "type": "timeseries"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 33
+          },
+          "id": 34,
+          "panels": [],
+          "title": "Users and Groups",
+          "type": "row"
+      },
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_disk_is_unhealthy\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Disk Health Status",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "${__field.labels.disk_type} bay-${__field.labels.drive_bay}",
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "value {cluster_name=\"groot.eng.qumulo.com\", disk_type=\"ssd\", drive_bay=\"1\", node_id=\"10\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Drive Bay 1"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "value {cluster_name=\"groot.eng.qumulo.com\", disk_type=\"ssd\", drive_bay=\"2\", node_id=\"10\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Drive Bay 2"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 17,
-        "y": 88
-      },
-      "id": 327,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
-          },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_disk_endurance_percent\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Disk Endurances",
-      "transformations": [],
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9nOXzqPVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "${__field.labels.role} ${__field.labels.interface}",
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "index": 1,
-                  "text": "UP"
-                },
-                "1": {
-                  "index": 0,
-                  "text": "DOWN"
-                }
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "left",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "filterable": true,
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
               },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "Primary Group"
+                      },
+                      "properties": [
+                          {
+                              "id": "custom.width",
+                              "value": 143
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "UID"
+                      },
+                      "properties": [
+                          {
+                              "id": "custom.width",
+                              "value": 132
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 6,
+              "w": 12,
+              "x": 0,
+              "y": 34
+          },
+          "id": 18,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": true,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
               },
+              "frameIndex": 0,
+              "showHeader": true,
+              "sortBy": []
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
               {
-                "color": "red",
-                "value": 1
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_users_info\"\nfields = [\"name\",\"uid\", \"primary_group\", \"sid\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"name\")\n  |> rename(columns: {name: \"User Name\", uid: \"UID\", primary_group: \"Primary Group\", sid: \"SID\"})",
+                  "refId": "B"
               }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 21,
-        "y": 88
-      },
-      "id": 395,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
           ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
+          "title": "Local Users",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Primary Group": 2,
+                          "SID": 3,
+                          "UID": 1,
+                          "User Name": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
       },
-      "pluginVersion": "9.4.7",
-      "repeat": "Node",
-      "repeatDirection": "v",
-      "targets": [
-        {
+      {
           "datasource": {
-            "type": "influxdb",
-            "uid": "9nOXzqPVk"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_network_interface_is_down\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "NIC Status",
-      "transformations": [],
-      "type": "stat"
-    }
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "left",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "filterable": true,
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 6,
+              "w": 12,
+              "x": 12,
+              "y": 34
+          },
+          "id": 17,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": true,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
+              },
+              "frameIndex": 0,
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
+                  }
+              ]
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_groups_info\"\nfields = [\"name\",\"gid\", \"sid\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"name\")\n  |> rename(columns: {name: \"Group Name\", gid: \"GID\", sid: \"SID\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "Local Groups",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "GID": 1,
+                          "Group Name": 0,
+                          "SID": 2
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 40
+          },
+          "id": 32,
+          "panels": [],
+          "title": "Quotas",
+          "type": "row"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "left",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "filterable": true,
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 7,
+              "w": 24,
+              "x": 0,
+              "y": 41
+          },
+          "id": 22,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": true,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
+              },
+              "frameIndex": 0,
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
+                  }
+              ]
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "import \"join\"\n\nmeasurement = \"alerts_quota_entries\"\nfields = [\"path\", \"limit\", \"capacity_usage\"]\n\nleft =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"capacity_usage\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group()\n    |> unique(column: \"path\")\n\nright =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"limit\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group()\n    |> unique(column: \"path\")\n\njoin.full(\n    left: left,\n    right: right,\n    on: (l, r) => l.path == r.path,\n    as: (l, r) => {\n        path = if exists l.path then l.path else r.path\n\n        return {path: path, capacity_usage: l._value, limit: r._value}\n    },\n)\n|> rename(columns: {path: \"Path\", limit: \"Limit\", capacity_usage: \"Capacity Usage\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "Quotas",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity Usage": 1,
+                          "Limit": 2,
+                          "Path": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "opacity",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "percentage",
+                      "steps": [
+                          {
+                              "color": "green"
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 48
+          },
+          "id": 23,
+          "maxPerRow": 8,
+          "options": {
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
+          },
+          "pluginVersion": "9.4.7",
+          "repeat": "QuotaPath",
+          "repeatDirection": "h",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "import \"join\"\n\nmeasurement = \"alerts_quota_entries\"\nfields = [\"path\", \"limit\", \"capacity_usage\"]\n\nleft =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"path\"] == \"${QuotaPath}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"capacity_usage\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group(columns: [\"path\"])\n\nright =\n  from(bucket: \"Qumulo Alerts Metrics\")\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n    |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n    |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n    |> filter(fn: (r) => r[\"path\"] == \"${QuotaPath}\")\n    |> filter(fn: (r) => r[\"entry_type\"] == \"limit\")\n    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n    |> group(columns: [\"path\"])\n\njoin.full(\n    left: left,\n    right: right,\n    on: (l, r) => l.path == r.path and l._time == r._time,\n    as: (l, r) => {\n        time = if exists l._time then l._time else r._time\n        path = if exists l.path then l.path else r.path\n\n        return {_time: time, path: path, capacity_usage: l._value, limit: r._value}\n    },\n)\n|> rename(columns: {path: \"Path\", limit: \"Limit\", capacity_usage: \"Capacity Usage\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "${QuotaPath}",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity Usage": 1,
+                          "Limit": 2,
+                          "Path": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "timeseries"
+      },
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 56
+          },
+          "id": 30,
+          "panels": [],
+          "title": "SMB Shares",
+          "type": "row"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "left",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "filterable": true,
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 57
+          },
+          "id": 20,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": true,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
+              },
+              "frameIndex": 0,
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
+                  }
+              ]
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_share_entries\"\nfields = [\"fs_path\",\"share_name\", \"_value\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"share_name\")\n  |> rename(columns: {fs_path: \"File System Path\", share_name: \"Share Name\", _value: \"Capacity\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "SMB Shares",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity": 2,
+                          "File System Path": 1,
+                          "Share Name": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "opacity",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "displayName": "${__field.labels.entry_type}",
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "capacity"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 65
+          },
+          "id": 42,
+          "maxPerRow": 12,
+          "options": {
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
+          },
+          "pluginVersion": "9.4.7",
+          "repeat": "ShareName",
+          "repeatDirection": "h",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_share_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"share_name\"] == \"${ShareName}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "B"
+              }
+          ],
+          "title": "${ShareName}",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity": 2,
+                          "File System Path": 1,
+                          "Share Name": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "timeseries"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      }
+                  },
+                  "displayName": "${__field.labels.entry_type}",
+                  "mappings": [],
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 73
+          },
+          "id": 63,
+          "maxPerRow": 12,
+          "options": {
+              "legend": {
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
+          },
+          "pluginVersion": "9.4.7",
+          "repeat": "ShareName",
+          "repeatDirection": "h",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_share_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"share_name\"] == \"${ShareName}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"alternative_data_stream\" or r[\"entry_type\"] == \"file\" or r[\"entry_type\"] == \"directory\" or r[\"entry_type\"] == \"other\" or r[\"entry_type\"] == \"symlink\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")\n",
+                  "refId": "B"
+              }
+          ],
+          "title": "${ShareName}",
+          "transformations": [],
+          "type": "piechart"
+      },
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 81
+          },
+          "id": 44,
+          "panels": [],
+          "title": "NFS Exports",
+          "type": "row"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "left",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "filterable": true,
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 82
+          },
+          "id": 19,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "enablePagination": true,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
+              },
+              "frameIndex": 0,
+              "showHeader": true,
+              "sortBy": [
+                  {
+                      "desc": false,
+                      "displayName": "value {cluster_name=\"groot.eng.qumulo.com\", name=\"Users\", sid=\"S-1-5-21-3278872703-1174929097-1958881360-513\"}"
+                  }
+              ]
+          },
+          "pluginVersion": "10.2.0",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_export_entries\"\nfields = [\"fs_path\",\"export_path\", \"_value\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> group()\n  |> keep(columns: fields)\n  |> unique(column: \"export_path\")\n  |> rename(columns: {fs_path: \"File System Path\", export_path: \"Export Path\", _value: \"Capacity\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "NFS Exports",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity": 2,
+                          "Export Path": 1,
+                          "File System Path": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "axisBorderShow": false,
+                      "axisCenteredZero": false,
+                      "axisColorMode": "text",
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "opacity",
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      },
+                      "insertNulls": false,
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 1,
+                      "scaleDistribution": {
+                          "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                          "group": "A",
+                          "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                          "mode": "off"
+                      }
+                  },
+                  "displayName": "${__field.labels.entry_type}",
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "decbytes"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "capacity"
+                      },
+                      "properties": [
+                          {
+                              "id": "color",
+                              "value": {
+                                  "fixedColor": "#00a3ca",
+                                  "mode": "fixed"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 90
+          },
+          "id": 53,
+          "maxPerRow": 12,
+          "options": {
+              "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
+          },
+          "pluginVersion": "9.4.7",
+          "repeat": "ExportPath",
+          "repeatDirection": "h",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_export_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"export_path\"] == \"${ExportPath}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"capacity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "B"
+              }
+          ],
+          "title": "${ExportPath}",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity": 2,
+                          "Export Path": 1,
+                          "File System Path": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "timeseries"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "palette-classic"
+                  },
+                  "custom": {
+                      "hideFrom": {
+                          "legend": false,
+                          "tooltip": false,
+                          "viz": false
+                      }
+                  },
+                  "displayName": "${__field.labels.entry_type}",
+                  "mappings": [],
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 99
+          },
+          "id": 73,
+          "options": {
+              "displayLabels": [],
+              "legend": {
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+              },
+              "pieType": "donut",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "tooltip": {
+                  "mode": "single",
+                  "sort": "none"
+              }
+          },
+          "pluginVersion": "9.4.7",
+          "repeat": "ExportPath",
+          "repeatDirection": "h",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"alerts_export_entries\"\n\n\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"export_path\"] == \"${ExportPath}\")\n  |> filter(fn: (r) => r[\"entry_type\"] == \"alternative_data_stream\" or r[\"entry_type\"] == \"file\" or r[\"entry_type\"] == \"directory\" or r[\"entry_type\"] == \"other\" or r[\"entry_type\"] == \"symlink\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "B"
+              }
+          ],
+          "title": "${ExportPath}",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Capacity": 2,
+                          "Export Path": 1,
+                          "File System Path": 0
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "piechart"
+      },
+      {
+          "collapsed": false,
+          "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 107
+          },
+          "id": 93,
+          "panels": [],
+          "title": "Node Details",
+          "type": "row"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "mappings": [
+                      {
+                          "options": {
+                              "0": {
+                                  "index": 1,
+                                  "text": "UP"
+                              },
+                              "1": {
+                                  "index": 0,
+                                  "text": "DOWN"
+                              }
+                          },
+                          "type": "value"
+                      }
+                  ],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 1
+                          }
+                      ]
+                  },
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 2,
+              "x": 0,
+              "y": 108
+          },
+          "id": 95,
+          "maxPerRow": 12,
+          "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "textMode": "auto"
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_quorum_node_is_offline\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "Node-${Node}",
+          "transformations": [],
+          "type": "stat"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "custom": {
+                      "align": "center",
+                      "cellOptions": {
+                          "type": "auto"
+                      },
+                      "inspect": false
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  }
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 2,
+              "x": 2,
+              "y": 108
+          },
+          "id": 167,
+          "options": {
+              "cellHeight": "sm",
+              "footer": {
+                  "countRows": false,
+                  "fields": "",
+                  "reducer": [
+                      "sum"
+                  ],
+                  "show": false
+              },
+              "showHeader": false
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "measurement = \"qumulo_node_info\"\nfields = [\"node_model\"]\nfrom(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == measurement)\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> keyValues(keyColumns: fields)\n  |> group()\n  |> last()\n  |> keep(columns: fields)\n  |> rename(columns: {node_model: \"Node Model\"})",
+                  "refId": "B"
+              }
+          ],
+          "title": "Node Model",
+          "transformations": [
+              {
+                  "id": "organize",
+                  "options": {
+                      "excludeByName": {},
+                      "indexByName": {
+                          "Cluster Name": 0,
+                          "Max Drive Failures": 3,
+                          "Max Node Failures": 4,
+                          "Platform": 5,
+                          "Service Model": 6,
+                          "UUID": 1,
+                          "Version": 2
+                      },
+                      "renameByName": {}
+                  }
+              }
+          ],
+          "type": "table"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "displayName": "${__field.labels.fan}",
+                  "mappings": [],
+                  "max": 15000,
+                  "min": 0,
+                  "noValue": "The fan speed details cannot be shown for this node model",
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 12000
+                          }
+                      ]
+                  },
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 3,
+              "x": 4,
+              "y": 108
+          },
+          "id": 108,
+          "maxPerRow": 12,
+          "options": {
+              "minVizHeight": 75,
+              "minVizWidth": 75,
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_fan_speed_rpm\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "Fan Speeds",
+          "transformations": [],
+          "type": "gauge"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "#EAB839",
+                              "value": 60
+                          },
+                          {
+                              "color": "red",
+                              "value": 80
+                          }
+                      ]
+                  },
+                  "unit": "celsius"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 2,
+              "x": 7,
+              "y": 108
+          },
+          "id": 132,
+          "maxPerRow": 12,
+          "options": {
+              "minVizHeight": 75,
+              "minVizWidth": 75,
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "hide": false,
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_cpu_temperature_celsius\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                  "refId": "B"
+              }
+          ],
+          "title": "CPU Temperatures",
+          "type": "gauge"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "displayName": "${__field.labels.disk_type} bay-${__field.labels.drive_bay}",
+                  "mappings": [
+                      {
+                          "options": {
+                              "0": {
+                                  "index": 1,
+                                  "text": "HEALTHY"
+                              },
+                              "1": {
+                                  "index": 0,
+                                  "text": "UNHEALTHY"
+                              }
+                          },
+                          "type": "value"
+                      }
+                  ],
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 1
+                          }
+                      ]
+                  },
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 8,
+              "x": 9,
+              "y": 108
+          },
+          "id": 270,
+          "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "textMode": "auto"
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_disk_is_unhealthy\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "Disk Health Status",
+          "transformations": [],
+          "type": "stat"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "displayName": "${__field.labels.disk_type} bay-${__field.labels.drive_bay}",
+                  "mappings": [],
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                      "mode": "percentage",
+                      "steps": [
+                          {
+                              "color": "green"
+                          }
+                      ]
+                  },
+                  "unit": "percent"
+              },
+              "overrides": [
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", disk_type=\"ssd\", drive_bay=\"1\", node_id=\"10\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "Drive Bay 1"
+                          }
+                      ]
+                  },
+                  {
+                      "matcher": {
+                          "id": "byName",
+                          "options": "value {cluster_name=\"groot.eng.qumulo.com\", disk_type=\"ssd\", drive_bay=\"2\", node_id=\"10\"}"
+                      },
+                      "properties": [
+                          {
+                              "id": "displayName",
+                              "value": "Drive Bay 2"
+                          }
+                      ]
+                  }
+              ]
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 17,
+              "y": 108
+          },
+          "id": 327,
+          "options": {
+              "minVizHeight": 75,
+              "minVizWidth": 75,
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_disk_endurance_percent\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "Disk Endurances",
+          "transformations": [],
+          "type": "gauge"
+      },
+      {
+          "datasource": {
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
+          },
+          "fieldConfig": {
+              "defaults": {
+                  "color": {
+                      "mode": "thresholds"
+                  },
+                  "displayName": "${__field.labels.role} ${__field.labels.interface}",
+                  "mappings": [
+                      {
+                          "options": {
+                              "0": {
+                                  "index": 1,
+                                  "text": "UP"
+                              },
+                              "1": {
+                                  "index": 0,
+                                  "text": "DOWN"
+                              }
+                          },
+                          "type": "value"
+                      }
+                  ],
+                  "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                          {
+                              "color": "green"
+                          },
+                          {
+                              "color": "red",
+                              "value": 1
+                          }
+                      ]
+                  },
+                  "unit": "none"
+              },
+              "overrides": []
+          },
+          "gridPos": {
+              "h": 5,
+              "w": 3,
+              "x": 21,
+              "y": 108
+          },
+          "id": 395,
+          "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                  "calcs": [
+                      "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+              },
+              "textMode": "auto"
+          },
+          "pluginVersion": "10.2.0",
+          "repeat": "Node",
+          "repeatDirection": "v",
+          "targets": [
+              {
+                  "datasource": {
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
+                  },
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_network_interface_is_down\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+                  "refId": "A"
+              }
+          ],
+          "title": "NIC Status",
+          "transformations": [],
+          "type": "stat"
+      }
   ],
   "refresh": "1m",
   "revision": 1,
@@ -1875,132 +3313,132 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": true,
-          "text": "a4u1-40g.eng.qumulo.com",
-          "value": "a4u1-40g.eng.qumulo.com"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "9nOXzqPVk"
-        },
-        "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> keyValues(keyColumns: [\"cluster_name\"])\n  |> group()\n  |> keep(columns: [\"cluster_name\"])\n  |> distinct(column: \"cluster_name\")",
-        "hide": 0,
-        "includeAll": false,
-        "label": "Cluster",
-        "multi": false,
-        "name": "Cluster",
-        "options": [],
-        "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> keyValues(keyColumns: [\"cluster_name\"])\n  |> group()\n  |> keep(columns: [\"cluster_name\"])\n  |> distinct(column: \"cluster_name\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "9nOXzqPVk"
-        },
-        "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_quota_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"path\"])\n  |> group()\n  |> keep(columns: [\"path\"])\n  |> distinct(column: \"path\")",
-        "hide": 2,
-        "includeAll": true,
-        "label": "QuotaPath",
-        "multi": false,
-        "name": "QuotaPath",
-        "options": [],
-        "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_quota_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"path\"])\n  |> group()\n  |> keep(columns: [\"path\"])\n  |> distinct(column: \"path\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "9nOXzqPVk"
-        },
-        "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_share_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"share_name\"])\n  |> group()\n  |> keep(columns: [\"share_name\"])\n  |> distinct(column: \"share_name\")",
-        "hide": 2,
-        "includeAll": true,
-        "label": "ShareName",
-        "multi": false,
-        "name": "ShareName",
-        "options": [],
-        "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_share_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"share_name\"])\n  |> group()\n  |> keep(columns: [\"share_name\"])\n  |> distinct(column: \"share_name\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "9nOXzqPVk"
-        },
-        "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_export_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"export_path\"])\n  |> group()\n  |> keep(columns: [\"export_path\"])\n  |> distinct(column: \"export_path\")",
-        "hide": 2,
-        "includeAll": true,
-        "label": "ExportPath",
-        "multi": false,
-        "name": "ExportPath",
-        "options": [],
-        "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_export_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"export_path\"])\n  |> group()\n  |> keep(columns: [\"export_path\"])\n  |> distinct(column: \"export_path\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "9nOXzqPVk"
-        },
-        "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"node_id\"])\n  |> group()\n  |> keep(columns: [\"node_id\"])\n  |> distinct(column: \"node_id\")",
-        "hide": 2,
-        "includeAll": true,
-        "label": "Node",
-        "multi": false,
-        "name": "Node",
-        "options": [],
-        "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"node_id\"])\n  |> group()\n  |> keep(columns: [\"node_id\"])\n  |> distinct(column: \"node_id\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      }
-    ]
+      "list": [
+          {
+              "current": {
+                  "selected": true,
+                  "text": "a4u1-40g.eng.qumulo.com",
+                  "value": "a4u1-40g.eng.qumulo.com"
+              },
+              "datasource": {
+                  "type": "influxdb",
+                  "uid": "9nOXzqPVk"
+              },
+              "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> keyValues(keyColumns: [\"cluster_name\"])\n  |> group()\n  |> keep(columns: [\"cluster_name\"])\n  |> distinct(column: \"cluster_name\")",
+              "hide": 0,
+              "includeAll": false,
+              "label": "Cluster",
+              "multi": false,
+              "name": "Cluster",
+              "options": [],
+              "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> keyValues(keyColumns: [\"cluster_name\"])\n  |> group()\n  |> keep(columns: [\"cluster_name\"])\n  |> distinct(column: \"cluster_name\")",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+          },
+          {
+              "current": {
+                  "selected": false,
+                  "text": "All",
+                  "value": "$__all"
+              },
+              "datasource": {
+                  "type": "influxdb",
+                  "uid": "9nOXzqPVk"
+              },
+              "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_quota_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"path\"])\n  |> group()\n  |> keep(columns: [\"path\"])\n  |> distinct(column: \"path\")",
+              "hide": 2,
+              "includeAll": true,
+              "label": "QuotaPath",
+              "multi": false,
+              "name": "QuotaPath",
+              "options": [],
+              "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_quota_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"path\"])\n  |> group()\n  |> keep(columns: [\"path\"])\n  |> distinct(column: \"path\")",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+          },
+          {
+              "current": {
+                  "selected": false,
+                  "text": "All",
+                  "value": "$__all"
+              },
+              "datasource": {
+                  "type": "influxdb",
+                  "uid": "9nOXzqPVk"
+              },
+              "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_share_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"share_name\"])\n  |> group()\n  |> keep(columns: [\"share_name\"])\n  |> distinct(column: \"share_name\")",
+              "hide": 2,
+              "includeAll": true,
+              "label": "ShareName",
+              "multi": false,
+              "name": "ShareName",
+              "options": [],
+              "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_share_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"share_name\"])\n  |> group()\n  |> keep(columns: [\"share_name\"])\n  |> distinct(column: \"share_name\")",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+          },
+          {
+              "current": {
+                  "selected": false,
+                  "text": "All",
+                  "value": "$__all"
+              },
+              "datasource": {
+                  "type": "influxdb",
+                  "uid": "9nOXzqPVk"
+              },
+              "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_export_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"export_path\"])\n  |> group()\n  |> keep(columns: [\"export_path\"])\n  |> distinct(column: \"export_path\")",
+              "hide": 2,
+              "includeAll": true,
+              "label": "ExportPath",
+              "multi": false,
+              "name": "ExportPath",
+              "options": [],
+              "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"alerts_export_entries\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"export_path\"])\n  |> group()\n  |> keep(columns: [\"export_path\"])\n  |> distinct(column: \"export_path\")",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+          },
+          {
+              "current": {
+                  "selected": false,
+                  "text": "All",
+                  "value": "$__all"
+              },
+              "datasource": {
+                  "type": "influxdb",
+                  "uid": "9nOXzqPVk"
+              },
+              "definition": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"node_id\"])\n  |> group()\n  |> keep(columns: [\"node_id\"])\n  |> distinct(column: \"node_id\")",
+              "hide": 2,
+              "includeAll": true,
+              "label": "Node",
+              "multi": false,
+              "name": "Node",
+              "options": [],
+              "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_node_info\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> keyValues(keyColumns: [\"node_id\"])\n  |> group()\n  |> keep(columns: [\"node_id\"])\n  |> distinct(column: \"node_id\")",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+          }
+      ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+      "from": "now-5m",
+      "to": "now"
   },
   "timepicker": {},
   "timezone": "",

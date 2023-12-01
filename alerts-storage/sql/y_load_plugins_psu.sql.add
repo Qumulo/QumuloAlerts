@@ -1,0 +1,8 @@
+use alerts;
+
+# Load new PSU plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('PSU', 'Alarms', 'Get Power Supply Notifications');
