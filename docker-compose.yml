@@ -91,7 +91,7 @@ services:
     restart: unless-stopped
 
   Alerts:
-    image: ghcr.io/qumulo/alerts:${QUMULOALERTS_VERSION:-6.2.2}
+    image: ghcr.io/qumulo/alerts:${QUMULOALERTS_VERSION:-6.0.2}
     hostname: alerts
     container_name: Alerts
     networks:
