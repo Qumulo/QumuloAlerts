@@ -429,8 +429,8 @@
       },
       {
           "datasource": {
-              "type": "prometheus",
-              "uid": "fJsAN2WSz"
+              "type": "influxdb",
+              "uid": "9nOXzqPVk"
           },
           "description": "",
           "fieldConfig": {
@@ -438,7 +438,24 @@
                   "color": {
                       "mode": "thresholds"
                   },
-                  "mappings": [],
+                  "displayName": "PSU: ${__field.labels.location}",
+                  "mappings": [
+                      {
+                          "options": {
+                              "0": {
+                                  "color": "green",
+                                  "index": 1,
+                                  "text": "UP"
+                              },
+                              "1": {
+                                  "color": "red",
+                                  "index": 0,
+                                  "text": "DOWN"
+                              }
+                          },
+                          "type": "value"
+                      }                    
+                  ],
                   "noValue": "The PSU details cannot be shown for this node model",
                   "thresholds": {
                       "mode": "absolute",
@@ -481,14 +498,14 @@
           "targets": [
               {
                   "datasource": {
-                      "type": "prometheus",
-                      "uid": "fJsAN2WSz"
+                      "type": "influxdb",
+                      "uid": "9nOXzqPVk"
                   },
                   "editorMode": "builder",
                   "exemplar": false,
-                  "expr": "qumulo_power_supply_is_unhealthy{instance=~\"$Cluster:8000\", node_id=~\"$Node\"}",
                   "instant": false,
                   "legendFormat": "node {{node_id}} {{location}}",
+                  "query": "from(bucket: \"Qumulo Alerts Metrics\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_power_supply_is_unhealthy\")\r\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\r\n  |> filter(fn: (r) => r[\"node_id\"] == \"${Node}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
                   "range": true,
                   "refId": "A"
               }
@@ -1714,7 +1731,7 @@
       ]
   },
   "time": {
-      "from": "now-6h",
+      "from": "now-1h",
       "to": "now"
   },
   "timepicker": {},

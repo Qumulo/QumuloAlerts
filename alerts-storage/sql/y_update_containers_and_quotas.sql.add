@@ -1,0 +1,18 @@
+use alerts;
+
+# Update the docker container image locations if they are not already set correctly. Only really applies to deployments being upgraded from docker hub versions
+
+UPDATE containers SET image = "ghcr.io/qumulo/collector" WHERE id=1 AND image !="ghcr.io/qumulo/collector";
+UPDATE containers SET image = "ghcr.io/qumulo/metrics" WHERE id=2 AND image !="ghcr.io/qumulo/metrics";
+UPDATE containers SET image = "ghcr.io/qumulo/email" WHERE id=3 AND image !="ghcr.io/qumulo/email";
+UPDATE containers SET image = "ghcr.io/qumulo/clicksend" WHERE id=4 AND image !="ghcr.io/qumulo/clicksend";
+UPDATE containers SET image = "ghcr.io/qumulo/ifttt" WHERE id=5 AND image !="ghcr.io/qumulo/ifttt";
+
+# Alter quota tables to include the admin_mail and email_suffix columns, as well as setting the default admin_mail to a blank string
+
+ALTER TABLE defaultquota ADD COLUMN IF NOT EXISTS admin_email TEXT DEFAULT "";
+ALTER TABLE defaultquota ADD COLUMN IF NOT EXISTS email_suffix CHAR(32);
+ALTER TABLE quotas ADD COLUMN IF NOT EXISTS admin_email TEXT DEFAULT "";
+ALTER TABLE quotas ADD COLUMN IF NOT EXISTS email_suffix CHAR(32);
+ALTER TABLE softquotas ADD COLUMN IF NOT EXISTS admin_email TEXT DEFAULT "";
+ALTER TABLE softquotas ADD COLUMN IF NOT EXISTS email_suffix CHAR(32);

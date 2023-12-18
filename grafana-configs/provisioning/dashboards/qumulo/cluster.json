@@ -240,6 +240,7 @@
                       "inspect": false
                   },
                   "mappings": [],
+                  "noValue": "Syslog server not configured on cluster",
                   "thresholds": {
                       "mode": "absolute",
                       "steps": [
@@ -294,7 +295,7 @@
                   "refId": "B"
               }
           ],
-          "title": "Domain",
+          "title": "Syslog Server",
           "transformations": [
               {
                   "id": "organize",
@@ -3437,7 +3438,7 @@
       ]
   },
   "time": {
-      "from": "now-5m",
+      "from": "now-30m",
       "to": "now"
   },
   "timepicker": {},
