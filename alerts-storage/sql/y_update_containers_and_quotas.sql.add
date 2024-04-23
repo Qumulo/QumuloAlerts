@@ -16,3 +16,5 @@ ALTER TABLE quotas ADD COLUMN IF NOT EXISTS admin_email TEXT DEFAULT "";
 ALTER TABLE quotas ADD COLUMN IF NOT EXISTS email_suffix CHAR(32);
 ALTER TABLE softquotas ADD COLUMN IF NOT EXISTS admin_email TEXT DEFAULT "";
 ALTER TABLE softquotas ADD COLUMN IF NOT EXISTS email_suffix CHAR(32);
+UPDATE plugins SET frequency = 5 WHERE name="Restriper";
+UPDATE plugins SET frequency = 1 WHERE name="Metrics";
