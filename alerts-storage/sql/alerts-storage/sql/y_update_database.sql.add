@@ -1,0 +1,7 @@
+use alerts;
+
+# Update the database with new additional items, or update exsiting items as needed
+
+# Create new default notification group for Hardware alerts
+insert ignore into notifygroup(name, description, protected) values('NotifyHardware', 'Notify members of hardware alerts', True);
+insert ignore into assoc_notifyevents(group_id, event_id) select r.id as group_id, p.id as event_id from notifygroup r inner join notifyevents p where r.name = "NotifyHardware" and p.name = ("NOTIFY_CPU","NOTIFY_DISKS","NOTIFY_FANS","NOTIFY_NETWORK","NOTIFY_NODES","NOTIFY_PSU");
