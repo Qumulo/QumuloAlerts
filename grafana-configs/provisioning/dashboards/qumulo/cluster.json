@@ -1156,7 +1156,7 @@
             "type": "influxdb",
             "uid": "9nOXzqPVk"
           },
-          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operations_total_total\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"cs-fil-q-k144.filad.local\")\n  |> filter(fn: (r) => r[\"io_type\"] != \"none\")\n  |> group(columns: [\"io_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(nonNegative: true)\n\n",
+          "query": "from(bucket: \"Qumulo Alerts Metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"qumulo_protocol_operations_total_total\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> filter(fn: (r) => r[\"cluster_name\"] == \"${Cluster}\")\n  |> filter(fn: (r) => r[\"io_type\"] != \"none\")\n  |> group(columns: [\"io_type\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false)\n  |> derivative(nonNegative: true)\n\n",
           "refId": "A"
         }
       ],
