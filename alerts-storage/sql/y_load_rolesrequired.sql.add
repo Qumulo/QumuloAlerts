@@ -5,4 +5,4 @@ use alerts;
 insert ignore into rolesrequired
        (role_name)
    values
-       ("PRIVILEGE_FILE_FULL_ACCESS");
+       ("PRIVILEGE_FILE_READ_ACCESS");
