@@ -1,0 +1,8 @@
+use alerts;
+
+# Load new Replication plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('Replication', 'Alerts', 'Get Replication Notifications');

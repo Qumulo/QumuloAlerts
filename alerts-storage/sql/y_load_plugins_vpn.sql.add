@@ -1,0 +1,8 @@
+use alerts;
+
+# Load new VPN plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('VPN', 'Alerts', 'Get VPN (Remote Support) Notifications');

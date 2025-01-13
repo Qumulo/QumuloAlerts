@@ -1,0 +1,16 @@
+use alerts;
+
+# Load new Power Supply Notify Event
+
+insert ignore into notifyevents
+       (name, category, subcategory, description)
+   values
+       ('NOTIFY_REPLICATION', 'Alerts', 'Replication', 'Notification when a Replication job changes or has errors');
+
+# Make sure to update the assoc_notifyevents table as well
+
+insert ignore into assoc_notifyevents(group_id, event_id)
+       select r.id as group_id, p.id as event_id
+       from notifygroup r
+       inner join notifyevents p
+       where r.name = "NotifyAll" and p.name = "NOTIFY_REPLICATION";

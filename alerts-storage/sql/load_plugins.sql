@@ -23,8 +23,10 @@ insert into plugins
        ('Exports', 'Alerts', 'Get NFS Exports'),
        ('FTP', 'Alerts', 'Get FTP Status'),
        ('Groups', 'Alerts', 'Get Local Groups'),
-       ('Monitoring', 'Alerts', 'Get Cloud Monitoring and Remote Support Information'),
+       ('Monitoring', 'Alerts', 'Get Cloud Monitoring Information'),
+       ('VPN', 'Alerts', 'Get Remote Support Information'),
        ('Quotas', 'Alerts', 'Get Quota Notifications'),
+       ('Replication', 'Alerts', 'Get Replication Notifications'),
        ('Restriper', 'Alerts', 'Get Restriper Status Information'),
        ('Shares', 'Alerts', 'Get SMB Shares'),
        ('Users', 'Alerts', 'Get Local Users');
