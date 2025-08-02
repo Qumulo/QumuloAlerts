@@ -7,6 +7,7 @@ UPDATE containers SET image = "ghcr.io/qumulo/metrics" WHERE id=2 AND image !="g
 UPDATE containers SET image = "ghcr.io/qumulo/email" WHERE id=3 AND image !="ghcr.io/qumulo/email";
 UPDATE containers SET image = "ghcr.io/qumulo/clicksend" WHERE id=4 AND image !="ghcr.io/qumulo/clicksend";
 UPDATE containers SET image = "ghcr.io/qumulo/ifttt" WHERE id=5 AND image !="ghcr.io/qumulo/ifttt";
+UPDATE containers SET image = "ghcr.io/qumulo/snmp" WHERE id=6 AND image !="ghcr.io/qumulo/snmp";
 
 # Alter quota tables to include the admin_mail and email_suffix columns, as well as setting the default admin_mail to a blank string
 

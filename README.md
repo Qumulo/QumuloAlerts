@@ -51,3 +51,4 @@ All other trademarks referenced herein are the property of their respective owne
 
  - [Berat Ulualan](https://github.com/beratulualan)
  - [Michael Kade](https://github.com/mikekade)
+ - [Brian Sung](https://github.com/ohbriansung)
