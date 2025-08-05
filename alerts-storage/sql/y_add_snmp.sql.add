@@ -28,20 +28,20 @@ INSERT IGNORE INTO assoc_exchange (exchangeinfo_id, exchangekey_id)
 INSERT IGNORE INTO containers (
        name,
        description,
-       exchange,
-       type,
+       dynamic_class,
+       container_type,
        image,
-       tag,
+       tags,
        command,
-       env_file,
+       hostname,
        network,
-       volumes,
        ports,
-       devices,
-       privileged,
-       restart_count,
-       restart_delay,
-       labels
+       volumes,
+       environment,
+       initial,
+       start_order,
+       quantity,
+       restart_policy
 ) VALUES (
        'SNMP',
        'SNMP - Format alarms / alerts / and other information into native language and send via SNMP',
@@ -62,7 +62,7 @@ INSERT IGNORE INTO containers (
 );
 
 # Add SNMP role privileges
-INSERT IGNORE INTO roleprivileges (privilege, description) VALUES
+INSERT IGNORE INTO roleprivileges (name, description) VALUES
        ('PRIVILEGE_SNMP_SERVER_ADD', 'Add a new SNMP server configuration'),
        ('PRIVILEGE_SNMP_SERVER_READ', 'List/Get the SNMP server configuration'),
        ('PRIVILEGE_SNMP_SERVER_UPDATE', 'Update the SNMP server configuration'),
