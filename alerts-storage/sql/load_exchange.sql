@@ -16,5 +16,4 @@ INSERT INTO exchangekey
        ('Metrics', 'Consumer', '', 'MetricsMessage', 'Metrics'),
        ('EMail', 'Consumer', 'CollectorMessage', '', 'EMail'),
        ('ClickSend', 'Consumer', 'CollectorMessage', '', 'ClickSend'),
-       ('IFTTT', 'Consumer', 'CollectorMessage', '', 'IFTTT'),
-       ('SNMP', 'Consumer', 'CollectorMessage', '', 'SNMP');
+       ('IFTTT', 'Consumer', 'CollectorMessage', '', 'IFTTT');

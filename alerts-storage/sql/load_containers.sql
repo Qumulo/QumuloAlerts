@@ -103,22 +103,5 @@ insert into containers
        false,
        0,
        1,
-       '{"Name": "no"}'),
-
-       ('SNMP',
-       'SNMP - Format alarms / alerts / and other information into native language and send via SNMP',
-       'SNMP',
-       'Consumer',
-       'ghcr.io/qumulo/snmp',
-       'latest',
-       './AlertsSNMP.py --username {db_username} --password {db_password} --host {db_host} --port {db_port} --log {loglevel} --routing_key {routing_key} --vhost {db_vhost} --plugins /code/plugins',
-       null,
-       'qumuloalerts',
-       '{}',
-       '{}',
-       '{}',
-       false,
-       0,
-       1,
        '{"Name": "no"}');
 

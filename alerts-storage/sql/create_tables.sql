@@ -138,20 +138,6 @@ create table if not exists emailserver (
        language varchar(15),
        timezone varchar(32));
 
-# SNMP server configuration
-
-create table if not exists snmpserver (
-       id int not null primary key auto_increment,
-       host varchar(64) not null,
-       port int not null,
-       username varchar(64) not null,
-       auth_protocol varchar(10) not null,
-       priv_protocol varchar(10) not null,
-       auth_key varchar(128) not null,
-       priv_key varchar(128) not null,
-       language varchar(15),
-       timezone varchar(32));
-
 # Roles configuration
 
 create table if not exists roles (

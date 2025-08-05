@@ -1,0 +1,86 @@
+use alerts;
+
+# Add SNMP table
+create table if not exists snmpserver (
+       id int not null primary key auto_increment,
+       host varchar(64) not null,
+       port int not null,
+       username varchar(64) not null,
+       auth_protocol varchar(10) not null,
+       priv_protocol varchar(10) not null,
+       auth_key varchar(128) not null,
+       priv_key varchar(128) not null,
+       language varchar(15),
+       timezone varchar(32));
+
+# Add SNMP exchangekey
+INSERT IGNORE INTO exchangekey (name, type, routing_key, metrics_key, queue) VALUES
+       ('SNMP', 'Consumer', 'CollectorMessage', '', 'SNMP');
+
+# Add SNMP exchangekey and exchangeinfo association
+INSERT IGNORE INTO assoc_exchange (exchangeinfo_id, exchangekey_id)
+       select l.id as exchangeinfo_id, t.id as exchangekey_id
+       from exchangeinfo l
+       inner join exchangekey t
+       where t.name = 'SNMP';
+
+# Add SNMP container
+INSERT IGNORE INTO containers (
+       name,
+       description,
+       exchange,
+       type,
+       image,
+       tag,
+       command,
+       env_file,
+       network,
+       volumes,
+       ports,
+       devices,
+       privileged,
+       restart_count,
+       restart_delay,
+       labels
+) VALUES (
+       'SNMP',
+       'SNMP - Format alarms / alerts / and other information into native language and send via SNMP',
+       'SNMP',
+       'Consumer',
+       'ghcr.io/qumulo/snmp',
+       'latest',
+       './AlertsSNMP.py --username {db_username} --password {db_password} --host {db_host} --port {db_port} --log {loglevel} --routing_key {routing_key} --vhost {db_vhost} --plugins /code/plugins',
+       null,
+       'qumuloalerts',
+       '{}',
+       '{}',
+       '{}',
+       false,
+       0,
+       1,
+       '{"Name": "no"}'
+);
+
+# Add SNMP role privileges
+INSERT IGNORE INTO roleprivileges (privilege, description) VALUES
+       ('PRIVILEGE_SNMP_SERVER_ADD', 'Add a new SNMP server configuration'),
+       ('PRIVILEGE_SNMP_SERVER_READ', 'List/Get the SNMP server configuration'),
+       ('PRIVILEGE_SNMP_SERVER_UPDATE', 'Update the SNMP server configuration'),
+       ('PRIVILEGE_SNMP_SERVER_DELETE', 'Delete the SNMP server configuration'),
+       ('PRIVILEGE_SNMP_SERVER_TEST', 'Test connectivity to the SNMP server'); 
+
+# Add SNMP roles to "Administrators" role
+
+INSERT IGNORE INTO assoc_roleprivileges (roles_id, privilege_id)
+       select r.id as roles_id, p.id as privilege_id
+       from roles r
+       inner join roleprivileges p
+       where r.name = "Administrators" and p.name like 'PRIVILEGE_SNMP_SERVER_%';
+
+# Add SNMP roles to "Observers" role
+
+INSERT IGNORE INTO assoc_roleprivileges (roles_id, privilege_id)
+       select r.id as roles_id, p.id as privilege_id
+       from roles r
+       inner join roleprivileges p
+       where r.name = "Observers" and p.name = 'PRIVILEGE_SNMP_SERVER_READ';
