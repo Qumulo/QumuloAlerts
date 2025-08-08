@@ -84,3 +84,10 @@ INSERT IGNORE INTO assoc_roleprivileges (roles_id, privilege_id)
        from roles r
        inner join roleprivileges p
        where r.name = "Observers" and p.name = 'PRIVILEGE_SNMP_SERVER_READ';
+
+# Add columns to snmpserver table
+ALTER TABLE snmpserver ADD COLUMN IF NOT EXISTS version varchar(10) not null;
+ALTER TABLE snmpserver ADD COLUMN IF NOT EXISTS community varchar(128) not null;
+ALTER TABLE snmpserver ADD COLUMN IF NOT EXISTS context varchar(128) not null;
+ALTER TABLE snmpserver ADD COLUMN IF NOT EXISTS security_engine varchar(128) not null;
+ALTER TABLE snmpserver ADD COLUMN IF NOT EXISTS context_engine varchar(128) not null;
