@@ -2,7 +2,8 @@
 
 ## 7.2.3
 - Bug Fix: Collector failed to reconnect to the cluster after a connection loss due to an uninitialized reconnect delay counter
-- Bug Fix: RabbitMQ queues were declared as transient non-exclusive, causing connection failures on RabbitMQ 3.12+
+- Bug Fix: RabbitMQ queues were declared as transient non-durable, causing connection failures on RabbitMQ 4.x
+- Bug Fix: Monitoring plugin crashed when a previously offline node rejoined the cluster
 
 ## 7.2.2
 - Bug Fix: Publisher plugins failed to reconnect to the cluster after a network outage or cluster reboot — all plugins now attempt reconnection before retrying
