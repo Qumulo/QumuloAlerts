@@ -22,7 +22,7 @@ create table if not exists users (
        full_name varchar(100) not null,
        username varchar(32) not null unique,
        hashed_password varchar(256) not null,
-       email varchar(64),
+       email varchar(254),
        phone varchar(32),
        ifttt_event varchar(64),
        language varchar(32),
@@ -63,9 +63,9 @@ create table if not exists quotas (
        user_notification boolean default 0,
        admin_notification boolean default 1,
        user_mode varchar(32),
-       admin_email varchar(256),
        email_suffix varchar(32),
-       user_email varchar(256));
+       user_email varchar(256),
+       admin_email varchar(256));
 
 # Default Quota thresholds to be monitored
 
@@ -77,6 +77,7 @@ create table if not exists defaultquota (
        warning int not null,
        user_notification boolean default 0,
        admin_notification boolean default 1,
+       user_email varchar(256),
        admin_email varchar(256),
        email_suffix varchar(32),
        user_mode varchar(32) default 'owner');
@@ -100,8 +101,8 @@ create table if not exists softquotas (
        warning int not null,
        user_notification boolean default 0,
        admin_notification boolean default 1,
-       user_mode varchar(32),
        admin_email varchar(256),
+       user_mode varchar(32),
        email_suffix varchar(32),
        user_email varchar(256));
 
@@ -128,8 +129,8 @@ create table if not exists iftttserver (
 
 create table if not exists emailserver (
        id int not null primary key auto_increment,
-       from_address varchar(64) not null,
-       to_address varchar(64),
+       from_address varchar(254) not null,
+       to_address varchar(254),
        login varchar(64),
        password varchar(128),
        server varchar(128) not null unique,

@@ -1,0 +1,55 @@
+use alerts;
+
+# Add audit syslog connection status translation keys introduced in v7.2.2.
+# Uses INSERT IGNORE so this script is safe to re-run on an already-updated DB.
+
+insert ignore into lang_translations (locale, lookup_name, message) values
+    ("en_GB", "audit-connected",      "Audit logging connection established."),
+    ("en_GB", "audit-connect-error",  "Audit logging connection failed."),
+    ("en_US", "audit-connected",      "Audit logging connection established."),
+    ("en_US", "audit-connect-error",  "Audit logging connection failed."),
+    ("fr_BE", "audit-connected",      "La connexion de journalisation d'audit a été établie."),
+    ("fr_BE", "audit-connect-error",  "La connexion de journalisation d'audit a échoué."),
+    ("fr_CA", "audit-connected",      "La connexion de journalisation d'audit a été établie."),
+    ("fr_CA", "audit-connect-error",  "La connexion de journalisation d'audit a échoué."),
+    ("fr_FR", "audit-connected",      "La connexion de journalisation d'audit a été établie."),
+    ("fr_FR", "audit-connect-error",  "La connexion de journalisation d'audit a échoué."),
+    ("de_AT", "audit-connected",      "Audit-Protokollierungsverbindung hergestellt."),
+    ("de_AT", "audit-connect-error",  "Audit-Protokollierungsverbindung fehlgeschlagen."),
+    ("de_DE", "audit-connected",      "Audit-Protokollierungsverbindung hergestellt."),
+    ("de_DE", "audit-connect-error",  "Audit-Protokollierungsverbindung fehlgeschlagen."),
+    ("de_CH", "audit-connected",      "Audit-Protokollierungsverbindung hergestellt."),
+    ("de_CH", "audit-connect-error",  "Audit-Protokollierungsverbindung fehlgeschlagen."),
+    ("hu_HU", "audit-connected",      "Az auditnaplózási kapcsolat létrejött."),
+    ("hu_HU", "audit-connect-error",  "Az auditnaplózási kapcsolat sikertelen."),
+    ("it_IT", "audit-connected",      "Connessione di auditing log stabilita."),
+    ("it_IT", "audit-connect-error",  "Connessione di auditing log non riuscita."),
+    ("it_CH", "audit-connected",      "Connessione di auditing log stabilita."),
+    ("it_CH", "audit-connect-error",  "Connessione di auditing log non riuscita."),
+    ("ja_JP", "audit-connected",      "監査ログの接続が確立されました。"),
+    ("ja_JP", "audit-connect-error",  "監査ログの接続に失敗しました。"),
+    ("ko_KR", "audit-connected",      "감사 로깅 연결이 설정되었습니다."),
+    ("ko_KR", "audit-connect-error",  "감사 로깅 연결에 실패했습니다."),
+    ("zh_TW", "audit-connected",      "稽核日誌連線已建立。"),
+    ("zh_TW", "audit-connect-error",  "稽核日誌連線失敗。"),
+    ("pl_PL", "audit-connected",      "Połączenie rejestrowania audytu zostało nawiązane."),
+    ("pl_PL", "audit-connect-error",  "Połączenie rejestrowania audytu nie powiodło się."),
+    ("pt_BR", "audit-connected",      "Conexão de log de auditoria estabelecida."),
+    ("pt_BR", "audit-connect-error",  "Conexão de log de auditoria falhou."),
+    ("pt_PT", "audit-connected",      "Conexão de log de auditoria estabelecida."),
+    ("pt_PT", "audit-connect-error",  "Conexão de log de auditoria falhou."),
+    ("sk_SK", "audit-connected",      "Pripojenie protokolovania auditu bolo nadviazané."),
+    ("sk_SK", "audit-connect-error",  "Pripojenie protokolovania auditu zlyhalo."),
+    ("es_ES", "audit-connected",      "Conexión de registro de auditoría establecida."),
+    ("es_ES", "audit-connect-error",  "Conexión de registro de auditoría fallida."),
+    ("tr_TR", "audit-connected",      "Denetim günlüğü bağlantısı kuruldu."),
+    ("tr_TR", "audit-connect-error",  "Denetim günlüğü bağlantısı başarısız oldu.");
+
+# Rebuild the associative table so the new rows are linked to their language records
+
+insert ignore into assoc_langtranslations(lang_id, translations_id)
+    select l.id as lang_id, t.id as translations_id
+    from languages l
+    inner join lang_translations t
+    where l.locale = t.locale
+      and t.lookup_name in ('audit-connected', 'audit-connect-error');

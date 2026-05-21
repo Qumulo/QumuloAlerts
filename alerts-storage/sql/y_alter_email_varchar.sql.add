@@ -1,0 +1,9 @@
+use alerts;
+
+# Widen email address columns from varchar(64) to varchar(254)
+# RFC 5321 defines 254 as the maximum valid email address length.
+# This is a safe, non-destructive operation -- existing data is not modified.
+
+ALTER TABLE users        MODIFY COLUMN email        varchar(254);
+ALTER TABLE emailserver  MODIFY COLUMN from_address varchar(254);
+ALTER TABLE emailserver  MODIFY COLUMN to_address   varchar(254);
