@@ -1,0 +1,5 @@
+use alerts;
+
+# Remove PRIVILEGE_SNAPSHOT_CALCULATE_USED_CAPACITY_READ as it is no longer required
+
+delete from rolesrequired where role_name = "PRIVILEGE_SNAPSHOT_CALCULATE_USED_CAPACITY_READ";
