@@ -1,5 +1,9 @@
 # QumuloAlerts Changelog
 
+## 7.2.4
+- Fix: Removed `PRIVILEGE_SNAPSHOT_CALCULATE_USED_CAPACITY_READ` as a required cluster privilege — this privilege no longer exists in newer Qumulo Core releases, causing cluster verification to fail on upgrade
+- Enhancement: Improved internal release versioning to support greater flexibility in how QumuloAlerts and Qumulo Core versions are aligned
+
 ## 7.2.3
 - Bug Fix: Collector failed to reconnect to the cluster after a connection loss due to an uninitialized reconnect delay counter
 - Bug Fix: RabbitMQ queues were declared as transient non-durable, causing connection failures on RabbitMQ 4.x
