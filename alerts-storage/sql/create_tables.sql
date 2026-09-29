@@ -64,8 +64,8 @@ create table if not exists quotas (
        admin_notification boolean default 1,
        user_mode varchar(32),
        email_suffix varchar(32),
-       user_email varchar(256),
-       admin_email varchar(256));
+       user_email text,
+       admin_email text);
 
 # Default Quota thresholds to be monitored
 
@@ -77,8 +77,8 @@ create table if not exists defaultquota (
        warning int not null,
        user_notification boolean default 0,
        admin_notification boolean default 1,
-       user_email varchar(256),
-       admin_email varchar(256),
+       user_email text,
+       admin_email text,
        email_suffix varchar(32),
        user_mode varchar(32) default 'owner');
 
@@ -101,10 +101,10 @@ create table if not exists softquotas (
        warning int not null,
        user_notification boolean default 0,
        admin_notification boolean default 1,
-       admin_email varchar(256),
+       admin_email text,
        user_mode varchar(32),
        email_suffix varchar(32),
-       user_email varchar(256));
+       user_email text);
 
 # ClickSend SMS configuration
 

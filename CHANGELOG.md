@@ -1,8 +1,14 @@
 # QumuloAlerts Changelog
 
+## 7.2.5
+- Fix: Alerts container crashed on startup due to an incompatibility between fastapi-pagination
+- Fix: Email address fields on quota, default quota, and soft quota alerts were limited to 255 characters (VARCHAR), columns expanded to TEXT with a migration for existing deployments
+- Update: Grafana updated to 11.2.10-security-01
+
 ## 7.2.4
 - Fix: Removed `PRIVILEGE_SNAPSHOT_CALCULATE_USED_CAPACITY_READ` as a required cluster privilege — this privilege no longer exists in newer Qumulo Core releases, causing cluster verification to fail on upgrade
 - Enhancement: Improved internal release versioning to support greater flexibility in how QumuloAlerts and Qumulo Core versions are aligned
+- Fix: Email address fields on quota, default quota, and soft quota alerts were limited to 255 characters (VARCHAR), causing an Internal Server Error when more than ~10 addresses were configured via the Web UI; columns expanded to TEXT with a migration for existing deployments
 
 ## 7.2.3
 - Bug Fix: Collector failed to reconnect to the cluster after a connection loss due to an uninitialized reconnect delay counter

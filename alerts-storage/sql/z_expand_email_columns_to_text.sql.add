@@ -1,0 +1,12 @@
+use alerts;
+
+# Expand email columns from varchar(256) to text to support more than ~10 email addresses
+
+alter table quotas modify column user_email text;
+alter table quotas modify column admin_email text;
+
+alter table defaultquota modify column user_email text;
+alter table defaultquota modify column admin_email text;
+
+alter table softquotas modify column user_email text;
+alter table softquotas modify column admin_email text;

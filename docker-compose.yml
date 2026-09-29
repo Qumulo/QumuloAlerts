@@ -51,7 +51,7 @@ services:
     restart: unless-stopped
 
   Grafana:
-    image: grafana/grafana-oss:${GRAFANA_VERSION:-10.4.2}
+    image: grafana/grafana-oss:${GRAFANA_VERSION:-11.2.10-security-01}
     hostname: grafana
     container_name: Grafana
     networks:
@@ -89,7 +89,7 @@ services:
     restart: unless-stopped
 
   Alerts:
-    image: ghcr.io/qumulo/alerts:${QUMULOALERTS_VERSION:-7.2.4}
+    image: ghcr.io/qumulo/alerts:${QUMULOALERTS_VERSION:-7.2.5}
     hostname: alerts
     container_name: Alerts
     networks:
@@ -98,6 +98,8 @@ services:
       - 8000:8000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+#      - ./qa.pem:/code/cert.pem:ro
+#      - ./qa.key.insecure:/code/key.pem:ro
     depends_on:
       Exchange:
         condition: service_healthy
