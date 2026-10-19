@@ -1,0 +1,30 @@
+use alerts;
+
+# Load new Quorum plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('Quorum', 'Alerts', 'Monitor cluster quorum health and alert on state transitions');
+
+# Activate Quorum plugin for all existing clusters
+
+insert ignore into assoc_clusterplugins (cluster_id, plugin_id)
+select c.id, p.id
+from clusters c, plugins p
+where p.name = 'Quorum';
+
+# Load Quorum notify event
+
+insert ignore into notifyevents
+       (name, category, subcategory, description)
+   values
+       ('NOTIFY_QUORUM', 'Alerts', 'Quorum', 'Notification when cluster quorum is lost, degraded, or restored');
+
+# Add to NotifyAll group
+
+insert ignore into assoc_notifyevents(group_id, event_id)
+       select r.id as group_id, p.id as event_id
+       from notifygroup r
+       inner join notifyevents p
+       where r.name = "NotifyAll" and p.name = "NOTIFY_QUORUM";
