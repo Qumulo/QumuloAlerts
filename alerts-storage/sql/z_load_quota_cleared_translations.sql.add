@@ -1,0 +1,47 @@
+use alerts;
+
+# Add quota-cleared and softquota-cleared translation keys for all locales
+
+insert ignore into lang_translations
+       (locale, lookup_name, message)
+   values
+       ("en_GB", "quota-cleared", "Quota for path {quota_name} has returned to normal â€” usage is below alert thresholds"),
+       ("en_GB", "softquota-cleared", "Soft quota for path {quota_name} has returned to normal â€” usage is below alert thresholds"),
+       ("en_US", "quota-cleared", "Quota for path {quota_name} has returned to normal â€” usage is below alert thresholds"),
+       ("en_US", "softquota-cleared", "Soft quota for path {quota_name} has returned to normal â€” usage is below alert thresholds"),
+       ("fr_BE", "quota-cleared", "Le quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("fr_BE", "softquota-cleared", "Le soft quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("fr_CA", "quota-cleared", "Le quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("fr_CA", "softquota-cleared", "Le soft quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("fr_FR", "quota-cleared", "Le quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("fr_FR", "softquota-cleared", "Le soft quota du chemin {quota_name} est revenu Ã  la normale â€” l'utilisation est en dessous des seuils d'alerte"),
+       ("de_AT", "quota-cleared", "Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("de_AT", "softquota-cleared", "Soft Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("de_CH", "quota-cleared", "Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("de_CH", "softquota-cleared", "Soft Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("de_DE", "quota-cleared", "Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("de_DE", "softquota-cleared", "Soft Quota fÃ¼r Pfad {quota_name} hat sich normalisiert â€” Verbrauch liegt unterhalb der Warnschwellen"),
+       ("hu_HU", "quota-cleared", "A(z) {quota_name} elÃ©rÃ©si Ãºt kvÃ³tÃ¡ja visszatÃ©rt a normÃ¡lhoz â€” a hasznÃ¡lat a riaÅ¡tÃ¡si kÃ¼szÃ¶bÃ¶k alatt van"),
+       ("hu_HU", "softquota-cleared", "A(z) {quota_name} elÃ©rÃ©si Ãºt puha kvÃ³tÃ¡ja visszatÃ©rt a normÃ¡lhoz â€” a hasznÃ¡lat a riaÅ¡tÃ¡si kÃ¼szÃ¶bÃ¶k alatt van"),
+       ("it_CH", "quota-cleared", "La quota del percorso {quota_name} Ã¨ tornata alla normalitÃ  â€” l'utilizzo Ã¨ al di sotto delle soglie di allerta"),
+       ("it_CH", "softquota-cleared", "La softquota del percorso {quota_name} Ã¨ tornata alla normalitÃ  â€” l'utilizzo Ã¨ al di sotto delle soglie di allerta"),
+       ("it_IT", "quota-cleared", "La quota del percorso {quota_name} Ã¨ tornata alla normalitÃ  â€” l'utilizzo Ã¨ al di sotto delle soglie di allerta"),
+       ("it_IT", "softquota-cleared", "La softquota del percorso {quota_name} Ã¨ tornata alla normalitÃ  â€” l'utilizzo Ã¨ al di sotto delle soglie di allerta"),
+       ("ja_JP", "quota-cleared", "ãƒ‘ã‚¹ {quota_name} ã®QuotaãŒæ­£å¸¸ã«æˆ»ã‚Šã¾ã—ãŸ â€” ä½¿ç”¨é‡ã¯ã‚¢ãƒ©ãƒ¼ãƒˆã®ã—ãã„å€¤ã‚’ä¸‹å›žã£ã¦ã„ã¾ã™"),
+       ("ja_JP", "softquota-cleared", "ãƒ‘ã‚¹ {quota_name} ã®SoftQuotaãŒæ­£å¸¸ã«æˆ»ã‚Šã¾ã—ãŸ â€” ä½¿ç”¨é‡ã¯ã‚¢ãƒ©ãƒ¼ãƒˆã®ã—ãã„å€¤ã‚’ä¸‹å›žã£ã¦ã„ã¾ã™"),
+       ("ko_KR", "quota-cleared", "ê²½ë¡œ {quota_name}ì˜ í• ë‹¹ëŸ‰ì´ ì •ìƒìœ¼ë¡œ ëŒì•„ì™•ìŠµë‹ˆë‹¤ â€” ì‚¬ìš©ëŸ‰ì´ ì•Œë¦¼ ìž„ê³„ê°’ ì´í•˜ìž…ë‹ˆë‹¤"),
+       ("ko_KR", "softquota-cleared", "ê²½ë¡œ {quota_name}ì˜ ì†Œí”„íŠ¸ í• ë‹¹ëŸ‰ì´ ì •ìƒìœ¼ë¡œ ëŒì•„ì™•ìŠµë‹ˆë‹¤ â€” ì‚¬ìš©ëŸ‰ì´ ì•Œë¦¼ ìž„ê³„ê°’ ì´í•˜ìž…ë‹ˆë‹¤"),
+       ("pl_PL", "quota-cleared", "Quota dla Å›cieÅ¼ki {quota_name} powrÃ³ciÅ‚a do normy â€” uÅ¼ycie jest poniÅ¼ej progÃ³w alertÃ³w"),
+       ("pl_PL", "softquota-cleared", "SoftQuota dla Å›cieÅ¼ki {quota_name} powrÃ³ciÅ‚a do normy â€” uÅ¼ycie jest poniÅ¼ej progÃ³w alertÃ³w"),
+       ("pt_BR", "quota-cleared", "Cota do caminho {quota_name} voltou ao normal â€” uso estÃ¡ abaixo dos limites de alerta"),
+       ("pt_BR", "softquota-cleared", "Soft Quota do caminho {quota_name} voltou ao normal â€” uso estÃ¡ abaixo dos limites de alerta"),
+       ("pt_PT", "quota-cleared", "Cota do caminho {quota_name} voltou ao normal â€” uso estÃ¡ abaixo dos limites de alerta"),
+       ("pt_PT", "softquota-cleared", "Soft Quota do caminho {quota_name} voltou ao normal â€” uso estÃ¡ abaixo dos limites de alerta"),
+       ("sk_SK", "quota-cleared", "KvÃ³ta pre cestu {quota_name} sa vrÃ¡tila do normÃ¡lu â€” vyuÅ¾itie je pod hranicami upozornenÃ­"),
+       ("sk_SK", "softquota-cleared", "MÃ¤kkÃ¡ kvÃ³ty pre cestu {quota_name} sa vrÃ¡tila do normÃ¡lu â€” vyuÅ¾itie je pod hranicami upozornenÃ­"),
+       ("es_ES", "quota-cleared", "La cuota para la ruta {quota_name} ha vuelto a la normalidad â€” el uso estÃ¡ por debajo de los umbrales de alerta"),
+       ("es_ES", "softquota-cleared", "La cuota flexible para la ruta {quota_name} ha vuelto a la normalidad â€” el uso estÃ¡ por debajo de los umbrales de alerta"),
+       ("tr_TR", "quota-cleared", "{quota_name} yolu iÃ§in kota normale dÃ¶ndÃ¼ â€” kullanÄ±m uyardÄ± eÅŸiklerin altÄ±nda"),
+       ("tr_TR", "softquota-cleared", "{quota_name} yolu iÃ§in geÃ§irgen kota normale dÃ¶ndÃ¼ â€” kullanÄ±m uyardÄ± eÅŸiklerin altÄ±nda"),
+       ("zh_TW", "quota-cleared", "è·¯å¾‘ {quota_name} çš„é…é¡å·²æ¢å¾©æ­£å¸¸ â€” ä½¿ç”¨é‡ä½Žæ–¼è­¦å ±é–¾å€¤"),
+       ("zh_TW", "softquota-cleared", "è·¯å¾‘ {quota_name} çš„è»Ÿé…é¡å·²æ¢å¾©æ­£å¸¸ â€” ä½¿ç”¨é‡ä½Žæ–¼è­¦å ±é–¾å€¤");
