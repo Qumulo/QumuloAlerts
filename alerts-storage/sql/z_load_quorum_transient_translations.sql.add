@@ -1,0 +1,24 @@
+-- Migration: add quorum-transient translation key for all locales
+-- Safe for existing installs: INSERT IGNORE skips rows that already exist
+
+INSERT IGNORE INTO lang_translations (locale, lookup_name, message) VALUES
+       ("en_GB", "quorum-transient", "Quorum was briefly lost and restored on cluster {cluster_name}. Reason: {reason}. Restored at {last_active_time}."),
+       ("en_US", "quorum-transient", "Quorum was briefly lost and restored on cluster {cluster_name}. Reason: {reason}. Restored at {last_active_time}."),
+       ("fr_BE", "quorum-transient", "Le quorum a été brièvement perdu et restauré sur le cluster {cluster_name}. Raison: {reason}. Restauré le {last_active_time}."),
+       ("fr_CA", "quorum-transient", "Le quorum a été brièvement perdu et restauré sur le cluster {cluster_name}. Raison: {reason}. Restauré le {last_active_time}."),
+       ("fr_FR", "quorum-transient", "Le quorum a été brièvement perdu et restauré sur le cluster {cluster_name}. Raison: {reason}. Restauré le {last_active_time}."),
+       ("de_AT", "quorum-transient", "Das Quorum wurde kurzzeitig unterbrochen und auf Cluster {cluster_name} wiederhergestellt. Grund: {reason}. Wiederhergestellt am {last_active_time}."),
+       ("de_DE", "quorum-transient", "Das Quorum wurde kurzzeitig unterbrochen und auf Cluster {cluster_name} wiederhergestellt. Grund: {reason}. Wiederhergestellt am {last_active_time}."),
+       ("de_CH", "quorum-transient", "Das Quorum wurde kurzzeitig unterbrochen und auf Cluster {cluster_name} wiederhergestellt. Grund: {reason}. Wiederhergestellt am {last_active_time}."),
+       ("hu_HU", "quorum-transient", "A kvórum rövid ideig megszakadt és visszaállt a(z) {cluster_name} fürten. Ok: {reason}. Visszaállítva: {last_active_time}."),
+       ("it_IT", "quorum-transient", "Il quorum è stato brevemente perso e ripristinato sul cluster {cluster_name}. Motivo: {reason}. Ripristinato alle {last_active_time}."),
+       ("it_CH", "quorum-transient", "Il quorum è stato brevemente perso e ripristinato sul cluster {cluster_name}. Motivo: {reason}. Ripristinato alle {last_active_time}."),
+       ("ja_JP", "quorum-transient", "クラスター {cluster_name} でクォーラムが一時的に失われ、復元されました。理由: {reason}。復元時刻: {last_active_time}。"),
+       ("ko_KR", "quorum-transient", "클러스터 {cluster_name}에서 쿼럼이 잠시 중단되었다가 복원되었습니다. 이유: {reason}. 복원 시간: {last_active_time}."),
+       ("zh_TW", "quorum-transient", "叢集 {cluster_name} 的仲裁短暫中斷後已恢復。原因: {reason}。恢復時間: {last_active_time}。"),
+       ("pl_PL", "quorum-transient", "Kworum zostało krótko utracone i przywrócone na klastrze {cluster_name}. Powód: {reason}. Przywrócone o {last_active_time}."),
+       ("pt_BR", "quorum-transient", "O quórum foi brevemente perdido e restaurado no cluster {cluster_name}. Motivo: {reason}. Restaurado em {last_active_time}."),
+       ("pt_PT", "quorum-transient", "O quórum foi brevemente perdido e restaurado no cluster {cluster_name}. Motivo: {reason}. Restaurado em {last_active_time}."),
+       ("sk_SK", "quorum-transient", "Kvórum bolo krátko stratené a obnovené na klastri {cluster_name}. Dôvod: {reason}. Obnovené dňa {last_active_time}."),
+       ("es_ES", "quorum-transient", "El quórum se perdió brevemente y fue restaurado en el clúster {cluster_name}. Motivo: {reason}. Restaurado el {last_active_time}."),
+       ("tr_TR", "quorum-transient", "{cluster_name} kümesinde çekirdek kısa süreliğine yitirildi ve yeniden sağlandı. Neden: {reason}. Yeniden sağlandı: {last_active_time}.");
