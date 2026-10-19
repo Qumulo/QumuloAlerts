@@ -1,0 +1,30 @@
+use alerts;
+
+# Load new Health plugin
+
+insert ignore into plugins
+       (name, category, description)
+   values
+       ('Health', 'Alerts', 'Monitor cluster reachability and alert when all floating IPs are unreachable');
+
+# Activate Health plugin for all existing clusters
+
+insert ignore into assoc_clusterplugins (cluster_id, plugin_id)
+select c.id, p.id
+from clusters c, plugins p
+where p.name = 'Health';
+
+# Load Health notify event
+
+insert ignore into notifyevents
+       (name, category, subcategory, description)
+   values
+       ('NOTIFY_HEALTH', 'Alerts', 'ClusterHealth', 'Notification when cluster floating IPs are unreachable or recovered');
+
+# Add to NotifyAll group
+
+insert ignore into assoc_notifyevents(group_id, event_id)
+       select r.id as group_id, p.id as event_id
+       from notifygroup r
+       inner join notifyevents p
+       where r.name = "NotifyAll" and p.name = "NOTIFY_HEALTH";
