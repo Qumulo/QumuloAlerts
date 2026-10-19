@@ -5,8 +5,8 @@ use alerts;
 alter table quotas modify column user_email text;
 alter table quotas modify column admin_email text;
 
-alter table defaultquota modify column user_email text;
-alter table defaultquota modify column admin_email text;
+alter table defaultquota add column if not exists user_email text;
+alter table defaultquota add column if not exists admin_email text;
 
 alter table softquotas modify column user_email text;
 alter table softquotas modify column admin_email text;
